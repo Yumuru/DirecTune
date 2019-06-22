@@ -28,53 +28,24 @@ public class MusicPlayer {
 }
 
 public class MusicScoreReader {
-    public static CheckAndDo Read(MusicScore score) {
-        var checkAndDo = new CheckAndDo();
-        foreach (var note in score.notes) {
-            var timing = note.timing;
-            checkAndDo.Append(() => Music.IsJustChangedAt(timing));
-        }
-        return checkAndDo;
-    }
 }
 
-public class CheckAndDo {
-    public Part start, last;
-    List<Part> parts = new List<Part>();
+public class Player {
+    
+}
 
-    public IObservable<Unit> Append(Func<bool> wait) {
-        var part = new Part(wait);
-        if (start == null) {
-            start = part;
-        } else {
-            last.next = part;
-        }
-        last = part;
-        return part.subject;
+public class Waitor {
+    public Subject<Unit> invoke = new Subject<Unit>();
+    public Waitor next;
+    public Waitor prev;
+    public Waitor Append() => Append(new Waitor());
+    public Waitor Append(Waitor next) {
+        this.next = next;
+        next.prev = this;
+        return next;
     }
-    public Player GeneratePlayer(int pos) {
-        var part = start;
-        while (pos-- > 0) part = part.next;
-        return new Player(part);
-    }
-
-    public class Player {
-        public Subject<Unit> invoke = new Subject<Unit>();
-        public Part current;
-        public Player(Part start) {
-            this.current = start;
-            invoke
-                .TakeWhile(_ => current != null)
-                .Where(_ => current.wait())
-                .Subscribe(_ => {
-                    current.subject.OnNext(Unit.Default);
-                    current = current.next;
-                });
-        }
-    }
-
-    public class Waitor {
-        public Subject<Unit> next = new Subject<Unit>();
-        public Subject<Unit> prev = new Subject<Unit>();
+    public Waitor Invoke(Action<Subject<Unit>> setInvoke) {
+        setInvoke(invoke);
+        return this;
     }
 }
