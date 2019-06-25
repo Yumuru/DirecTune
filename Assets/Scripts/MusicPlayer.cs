@@ -6,46 +6,25 @@ using UniRx;
 using UniRx.Triggers;
 
 public class MusicPlayer {
-    GameObject gameObject;
-    public AudioSource source;
+    GameObject m_gameObject;
+    public GameObject GameObject { get { return m_gameObject; } }
+    public AudioSource m_source;
+    public TimingSequencer m_sequencer;
 
-    public MusicPlayer(AudioSource source) {
-        this.source = source;
-        gameObject = source.gameObject;
+    public MusicPlayer(AudioSource m_source) {
+        this.m_source = m_source;
+        m_gameObject = m_source.gameObject;
+        m_sequencer = new TimingSequencer(new TimingSequencePart(new Timing(0)));
+        m_gameObject.UpdateAsObservable()
+            .Select(_ => Music.Just)
+            .Subscribe(m_sequencer.m_update);
     }
 
     public void Play() {
-        Music.Play(gameObject.name);
-        gameObject.UpdateAsObservable()
-            .Subscribe(_ => {
-
-            });
+        Music.Play(m_gameObject.name);
+        m_sequencer.Play();
     }
-
-    public void ReadScore(MusicScore score) {
-
-    }
-}
-
-public class MusicScoreReader {
-}
-
-public class Player {
-    
-}
-
-public class Waitor {
-    public Subject<Unit> invoke = new Subject<Unit>();
-    public Waitor next;
-    public Waitor prev;
-    public Waitor Append() => Append(new Waitor());
-    public Waitor Append(Waitor next) {
-        this.next = next;
-        next.prev = this;
-        return next;
-    }
-    public Waitor Invoke(Action<Subject<Unit>> setInvoke) {
-        setInvoke(invoke);
-        return this;
+    public void Complete() {
+        m_sequencer.Complete();
     }
 }
