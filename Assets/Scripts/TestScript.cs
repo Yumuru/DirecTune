@@ -27,12 +27,17 @@ public class TestScript : MonoBehaviour {
             .AddGhost(new Timing(5, 0, 0), 2, 0)
             .AddGhost(new Timing(5, 1, 0), 2, 0)
             .AddGhost(new Timing(5, 2, 0), 2, 0);
-        player.ReadChart(chart);
-        GameManager.EmergeGhost.Subscribe(enemy => {
+        player.m_sequencer.ReadChart(chart);
+        GameManager.EmergeGhost.Subscribe(ghostNoteParameter => {
+            var ghost = GhostManager.Emerge(ghostNoteParameter);
+            this.UpdateAsObservable()
+                .Where(_ => Music.IsJustChanged).Take(1)
+                .SelectMany(TimingManager.OnStep)
+                .TakeUntil(ghost.OnDestroy)
+                .Subscribe(_ => {
+                    ghost.Step();
+                });
         }).AddTo(gameObject);
-
-        GameManager.EmergeGhost.Subscribe(_ => print("Test"));
-
         
         this.UpdateAsObservable()
             .Where(_ => Input.GetKeyDown(KeyCode.P))

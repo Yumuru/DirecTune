@@ -19,34 +19,20 @@ public class MusicChart {
     }
 }
 
-public class GhostNoteParameter {
-    public Timing m_timing;
-    public int m_lane;
-    public int m_position;
-    public int m_strength;
-    public GhostNoteParameter(Timing timing, int lane, int strength) {
-        this.m_timing = timing; 
-        this.m_lane = lane;
-        this.m_strength = strength;
-   }
-}
-
 public enum GhostPattern {
     Normal,
     Strong
 }
 
 public static class MusicChartFunc {
-    public static MusicPlayer ReadChart(this MusicPlayer player, MusicChart chart) {
-        var seq = player.m_sequencer;
+    public static TimingSequencer ReadChart(this TimingSequencer seq, MusicChart chart) {
         foreach (var ghostNote in chart.m_ghostNotes) {
             var popTiming = new Timing(ghostNote.m_timing);
             popTiming.Subtract(TimingManager.LaneTimingLength, Music.CurrentSection);
             seq.Add(popTiming).SetAction(tim => {
-                ghostNote.m_position = TimingManager.LaneLength;
                 GameManager.EmergeGhost.OnNext(ghostNote);
             });
         }
-        return player;
+        return seq;
     }
 }
