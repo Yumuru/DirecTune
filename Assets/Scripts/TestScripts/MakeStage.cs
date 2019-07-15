@@ -11,6 +11,11 @@ public class MakeStage : MonoBehaviour
     [SerializeField]
     int m_stageNum;
     StageParameters[] m_stage = new StageParameters[3];
+    private void Start() {
+        for (int i = 0; i < 3; i++) {
+            m_stage[i] = new StageParameters();
+        }
+    }
     private void Update() {
         if (Input.GetKeyDown(KeyCode.L)) {
             SetLane(0);
