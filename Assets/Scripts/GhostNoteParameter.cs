@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GhostNoteParameter {
+public class GhostNoteParameters {
     public int m_lane;
     public int m_position;
     public int m_strength;
-    public GhostNoteParameter(int lane, int position, int strength) {
+    public GhostNoteParameters(int lane, int position, int strength) {
         SetParameter(lane, position, strength);
     }
     public void SetParameter(int lane, int position, int strength) {
