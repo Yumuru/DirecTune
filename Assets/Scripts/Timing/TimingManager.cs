@@ -13,19 +13,36 @@ public class TimingManager : MonoBehaviour {
 
     [SerializeField]
     Timing m_stepTimingLength;
-    Timing m_laneTimingLength;
+    static Timing m_laneTimingLength = new Timing();
+    public static Subject<Unit> OnStep { get; } = new Subject<Unit>();
+
     [SerializeField]
     int m_stepNum;
+    public static int StepNum { get { return Instance.m_stepNum; } }
     int m_laneLength;
     
     void Awake() => Instance = this;
 
+    void Start() {
+        StartStepEvent();
+    }
+
+    void StartStepEvent() {
+        var stepTiming = new Timing(0);
+        var subject = new Subject<Unit>();
+        this.UpdateAsObservable()
+            .Where(_ => Music.IsJustChangedAt(stepTiming))
+            .Subscribe(subject);
+        subject.Subscribe(_ => stepTiming.Add(StepTimingLength, Music.CurrentSection));
+        subject.Subscribe(OnStep);
+    }
+
     public static Timing StepTimingLength { get { return Instance.m_stepTimingLength; } }
     public static Timing LaneTimingLength { get { 
-        var timing = new Timing(0, 0, StepTimingLength.CurrentMusicalTime * Instance.m_stepNum);
-        timing.Fix(Music.CurrentSection);
-        return timing;
-     } }
+        m_laneTimingLength.Set(0, 0, StepTimingLength.CurrentMusicalTime * Instance.m_stepNum);
+        m_laneTimingLength.Fix(Music.CurrentSection);
+        return m_laneTimingLength;
+    } }
     public static int LaneLength { get { return LaneTimingLength.CurrentMusicalTime / StepTimingLength.CurrentMusicalTime; } }
     public static bool CouldConduct(Timing timing) {
         var current = Music.AudioTimeSec;
