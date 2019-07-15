@@ -775,15 +775,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 022201eba9c4744f8a491fbcffeb0e1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canConductedRange: 0
-  stepTimingLength:
+  m_canConductedRange: 0.2
+  m_stepTimingLength:
     Bar: 0
     Beat: 1
     Unit: 0
-  laneTimingLength:
-    Bar: 2
-    Beat: 0
-    Unit: 0
+  m_stepNum: 8
 --- !u!4 &1669313267
 Transform:
   m_ObjectHideFlags: 0
@@ -827,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cff8c3701bbd649309ef371120f49893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  music: {fileID: 1619401326}
+  m_music: {fileID: 1619401326}
 --- !u!4 &1996388547
 Transform:
   m_ObjectHideFlags: 0
