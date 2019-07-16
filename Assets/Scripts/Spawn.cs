@@ -21,7 +21,7 @@ public class Spawn : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I)) {
             SetObject();
         }
-        print(m_statusnum.m_lanenum);
+        //print(m_statusnum.m_lanenum);
     }
     void SetObject() {
         print(m_statusnum.m_lanenum);
