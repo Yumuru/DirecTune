@@ -5,7 +5,7 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class TestScript : MonoBehaviour {
+public class YTestScript : MonoBehaviour {
     public AudioSource m_music;
 
     void Start() {
