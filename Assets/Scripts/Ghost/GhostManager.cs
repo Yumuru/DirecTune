@@ -23,5 +23,8 @@ public class Ghost {
     public Subject<Unit> OnDestroy = new Subject<Unit>();
     public void Step() {
         m_position++;
+        if (m_position == TimingManager.StepNum) {
+            Debug.Log(Music.Just);
+        }
     }
 }

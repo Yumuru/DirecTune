@@ -19,6 +19,11 @@ public class ConductStick : MonoBehaviour {
     void ConductAction() {
         m_stick.UpdateAsObservable()
             .Where(_ => m_stick.device.velocity.sqrMagnitude >= Mathf.Pow(m_speedThreshold, 2f))
-            .Subscribe(_ => m_playerMain.m_OnConducted.OnNext(0));
+            .Subscribe(_ => {
+                var timing = new Timing(Music.Just);
+                if (TimingManager.CouldConduct(timing)) {
+                    print("conduct!");
+                }
+            });
     }
 }
