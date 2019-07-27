@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MakeStage : MonoBehaviour
+public class StageLane : MonoBehaviour
 {
     [Tooltip("This is stage parts")]
     [SerializeField]
-    private GameObject m_stageBox,m_certain,m_right,m_left,m_playerPos,m_makestageParts;
+    private GameObject m_blocks,m_certain,m_right,m_left,m_playerPos,m_makestageParts;
     [Tooltip("Stage parts num")]
     [SerializeField]
     int m_stageNum;
     StageParameters[] m_stage = new StageParameters[3];
 
+    #region Add after
+
+    Vector3 position, direction;
+    List<Ghost> ghosts;
+
+    #endregion
+
     #region MonobehaviorCallbacks
 
 
     private void Awake() {
-        GhostStageManager.GetInstance.m_makeStage = m_makestageParts.GetComponent<MakeStage>();
+        GhostStageManager.GetInstance.m_makeStage = m_makestageParts.GetComponent<StageLane>();
     }
     private void Start() {
         for (int i = 0; i < 3; i++) {
@@ -33,7 +40,7 @@ public class MakeStage : MonoBehaviour
 
     #endregion
 
-    #region Public Method Call
+    #region Method Call
 
     public void SetLane(int num) {
         Vector3 certain;
@@ -43,7 +50,7 @@ public class MakeStage : MonoBehaviour
             m_stage[num].m_laneNo = num;
             certain = m_certain.transform.position;
             for (int i = 0; i < m_stageNum; i++) {
-                m_stage[num].m_block[i] = Instantiate(m_stageBox, certain, Quaternion.identity);
+                m_stage[num].m_block[i] = Instantiate(m_blocks, certain, Quaternion.identity);
                 certain.z += 1;
             }
         }
@@ -52,7 +59,7 @@ public class MakeStage : MonoBehaviour
             m_stage[num].m_laneNo = num;
             certain = m_right.transform.position;
             for (int i = 0; i < m_stageNum; i++) {
-                m_stage[num].m_block[i] = Instantiate(m_stageBox, certain, Quaternion.identity);
+                m_stage[num].m_block[i] = Instantiate(m_blocks, certain, Quaternion.identity);
                 m_stage[num].m_block[i].transform.rotation = Quaternion.LookRotation(m_playerPos.transform.position - m_stage[num].m_block[i].transform.position, Vector3.up);
                 certain += m_stage[num].m_block[i].transform.forward;
                 certain.z += 1;
@@ -63,7 +70,7 @@ public class MakeStage : MonoBehaviour
             m_stage[num].m_laneNo = num;
             certain = m_left.transform.position;
             for (int i = 0; i < m_stageNum; i++) {
-                m_stage[num].m_block[i] = Instantiate(m_stageBox, certain, Quaternion.identity);
+                m_stage[num].m_block[i] = Instantiate(m_blocks, certain, Quaternion.identity);
                 m_stage[num].m_block[i].transform.rotation = Quaternion.LookRotation(m_playerPos.transform.position - m_stage[num].m_block[i].transform.position, Vector3.up);
                 certain += m_stage[num].m_block[i].transform.forward;
                 certain.z += 1;

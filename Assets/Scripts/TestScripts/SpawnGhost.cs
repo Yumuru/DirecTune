@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnGhost : MonoBehaviour
 {
     public GameObject m_prefab_ghost, m_target;
-    MakeStage m_stage = new MakeStage();
+    StageLane m_stage = new StageLane();
     //GhostNoteParameter m_ghost = new GhostNoteParameter();
     private void Start(){
         

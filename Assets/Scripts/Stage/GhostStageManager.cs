@@ -5,7 +5,8 @@ using UnityEngine;
 public sealed class GhostStageManager {
     private static GhostStageManager instance;
     public int m_stageStep=-1;
-    public MakeStage m_makeStage = new MakeStage();
+    public StageLane m_makeStage = new StageLane();
+    public Ghost m_ghost = new Ghost();
     GhostNoteParameter m_ghostnoteParameter;
     public static GhostStageManager GetInstance {
         get{
