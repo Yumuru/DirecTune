@@ -7,11 +7,16 @@ public class GhostNoteParameter {
     public int m_lane;
     public int m_box;
     public int m_strength;
+    [SerializeField]
+    GameObject m_prefab;
     public GhostNoteParameter(Timing timing, int lane, int strength) {
         SetParameter(timing, lane, strength);
     }
     public GhostNoteParameter(Timing timing,int lane,int strength,int box) {
         SetParameter(timing, lane, strength, box);
+    }
+    public GhostNoteParameter(int lane,int strength,int box) {
+        SetParameter(lane, strength, box);
     }
     public void SetParameter(Timing timing, int lane, int strength) {
         this.m_timing = timing;
@@ -20,6 +25,12 @@ public class GhostNoteParameter {
     }
     public void SetParameter(Timing timing,int lane,int strength,int box) {
         this.m_timing = timing;
+        this.m_lane = lane;
+        this.m_strength = strength;
+        this.m_box = box;
+    }
+    public void SetParameter(int lane, int strength, int box) {
+        //this.m_timing = timing;
         this.m_lane = lane;
         this.m_strength = strength;
         this.m_box = box;

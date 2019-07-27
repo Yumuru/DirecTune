@@ -48,7 +48,7 @@ public class MakeStage : MonoBehaviour
                 m_stage[num].m_block[i].transform.rotation = Quaternion.LookRotation(m_playerPos.transform.position - m_stage[num].m_block[i].transform.position, Vector3.up);
                 certain += m_stage[num].m_block[i].transform.forward;
                 certain.z += 1;
-                print(i);
+                //print(i);
             }
         }
         if (num == 2) {
