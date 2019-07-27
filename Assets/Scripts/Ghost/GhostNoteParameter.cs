@@ -7,6 +7,7 @@ public class GhostNoteParameter {
     public int m_lane;
     public int m_box;
     public int m_strength;
+    public GameObject m_ghostprefab;
     public GhostNoteParameter(Timing timing, int lane, int strength) {
         SetParameter(timing, lane, strength);
     }
