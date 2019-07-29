@@ -13,14 +13,8 @@ public class VRPlayer : MonoBehaviour {
     public AsyncSubject<VRStick> rStick = new AsyncSubject<VRStick>();
     public ReplaySubject<VRStick> sticks = new ReplaySubject<VRStick>();
 
-    public Rigidbody rigid;
-    public CapsuleCollider collider;
-
     protected virtual void Awake() {
         controllerManager = GetComponent<SteamVR_ControllerManager>();
-
-        rigid = GetComponent<Rigidbody>();
-        collider = GetComponent<CapsuleCollider>();
 
         Observable.WhenAll(lStick, rStick)
             .Subscribe(_ => sticks.OnCompleted());
@@ -29,18 +23,6 @@ public class VRPlayer : MonoBehaviour {
             (stick.isLeft ? lStick : rStick)
                 .OnNext(stick);
         });
-    }
-
-    private void Start() {
-        this.UpdateAsObservable()
-            .Where(_ => collider != null)
-            .Subscribe(_ => {
-                var pos = head.transform.position;
-                pos.y = transform.position.y;
-                pos.y += collider.height / 2f;
-                pos = transform.InverseTransformPoint(pos);
-                collider.center = pos;
-            });
     }
 
     public void SetHeadPosition(Vector3 position) {

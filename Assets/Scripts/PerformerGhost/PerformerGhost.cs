@@ -5,5 +5,6 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class YTestScript3 : MonoBehaviour {
+public class PerformerGhost {
+
 }

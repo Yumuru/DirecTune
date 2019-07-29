@@ -10,7 +10,17 @@ public class YTestScript : MonoBehaviour {
     public MusicPlayer m_player;
 
     void Start() {
-        TestMusicPlayer();
+        GameManager.EmergeGhost.Subscribe(ghostNoteParameter => {
+            var ghost = GhostManager.Emerge(ghostNoteParameter);
+            this.UpdateAsObservable()
+                .Where(_ => Music.IsJustChanged).Take(1)
+                .SelectMany(TimingManager.OnStep)
+                .TakeUntil(ghost.OnDestroy)
+                .Subscribe(_ => {
+                    ghost.Step();
+                });
+        }).AddTo(gameObject);
+
     }
 
     void TestMusicPlayer() {
@@ -28,16 +38,6 @@ public class YTestScript : MonoBehaviour {
             .AddGhost(new Timing(5, 1, 0), 2, 0)
             .AddGhost(new Timing(5, 2, 0), 2, 0);
         m_player.m_sequencer.ReadChart(chart);
-        GameManager.EmergeGhost.Subscribe(ghostNoteParameter => {
-            var ghost = GhostManager.Emerge(ghostNoteParameter);
-            this.UpdateAsObservable()
-                .Where(_ => Music.IsJustChanged).Take(1)
-                .SelectMany(TimingManager.OnStep)
-                .TakeUntil(ghost.OnDestroy)
-                .Subscribe(_ => {
-                    ghost.Step();
-                });
-        }).AddTo(gameObject);
         
         this.UpdateAsObservable()
             .Where(_ => Input.GetKeyDown(KeyCode.P))
