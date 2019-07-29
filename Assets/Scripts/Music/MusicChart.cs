@@ -26,9 +26,10 @@ public enum GhostPattern {
 
 public static class MusicChartFunc {
     public static TimingSequencer ReadChart(this TimingSequencer seq, MusicChart chart) {
+        var laneTimingLength = new Timing(TimingManager.LaneTimingLength);
         foreach (var ghostNote in chart.m_ghostNotes) {
             var popTiming = new Timing(ghostNote.m_timing);
-            popTiming.Subtract(TimingManager.LaneTimingLength, Music.CurrentSection);
+            popTiming.Subtract(laneTimingLength, Music.CurrentSection);
             seq.Add(popTiming).SetAction(tim => {
                 GameManager.EmergeGhost.OnNext(ghostNote);
             });

@@ -12,7 +12,7 @@ public class VRStick : MonoBehaviour {
 
     public VRPlayer player { get; private set; }
     public VRHead head { get; private set; }
-    public AsyncSubject<VRStick> otherSide;
+    public AsyncSubject<VRStick> otherSide = new AsyncSubject<VRStick>();
     public VRStickButtons buttons;
 
     public bool isLeft { get; private set; }

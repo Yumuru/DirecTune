@@ -15,6 +15,7 @@ public class TimingManager : MonoBehaviour {
     Timing m_stepTimingLength;
     static Timing m_laneTimingLength = new Timing();
     public static Subject<Unit> OnStep { get; } = new Subject<Unit>();
+    public static Subject<Unit> OnStepAfter { get; } = new Subject<Unit>();
 
     [SerializeField]
     int m_stepNum;
@@ -30,11 +31,19 @@ public class TimingManager : MonoBehaviour {
     void StartStepEvent() {
         var stepTiming = new Timing(0);
         var subject = new Subject<Unit>();
+        var subjectAfter = new Subject<Unit>();
         this.UpdateAsObservable()
             .Where(_ => Music.IsJustChangedAt(stepTiming))
-            .Subscribe(subject);
+            .Subscribe(_ => {
+                subject.OnNext(Unit.Default);
+                subjectAfter.OnNext(Unit.Default);
+            }, () => {
+                subject.OnCompleted();
+                subjectAfter.OnCompleted();
+            });
         subject.Subscribe(_ => stepTiming.Add(StepTimingLength, Music.CurrentSection));
         subject.Subscribe(OnStep);
+        subjectAfter.Subscribe(OnStepAfter);
     }
 
     public static Timing StepTimingLength { get { return Instance.m_stepTimingLength; } }
@@ -45,8 +54,8 @@ public class TimingManager : MonoBehaviour {
     } }
     public static int LaneLength { get { return LaneTimingLength.CurrentMusicalTime / StepTimingLength.CurrentMusicalTime; } }
     public static bool CouldConduct(Timing timing) {
-        var current = Music.AudioTimeSec;
-        var targetTime = (Music.CurrentSection.StartTimeSamples) / 1000f + timing.CurrentMusicTime();
+        var current = Music.Just.CurrentMusicTime() + (float)Music.TimeSecFromJust;
+        var targetTime = timing.CurrentMusicTime();
         return Mathf.Abs(current - targetTime) < Instance.m_canConductedRange;
     }
 }

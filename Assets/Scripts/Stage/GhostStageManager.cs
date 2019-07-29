@@ -18,6 +18,6 @@ public sealed class GhostStageManager:MonoBehaviour {
         m_stageStep+=1;
     }
     public void MakeStage(int num) {
-        m_makeStage.SetLane(num);
+        //m_makeStage.SetLane(num);
     }
 }
