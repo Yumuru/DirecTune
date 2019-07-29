@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public sealed class GhostStageManager {
+public sealed class GhostStageManager:MonoBehaviour {
     private static GhostStageManager instance;
     public int m_stageStep=-1;
-    public StageLane m_makeStage = new StageLane();
-    public Ghost m_ghost = new Ghost();
-    GhostNoteParameter m_ghostnoteParameter;
+    public StageLane m_makeStage;
+    private void Awake() {
+        instance=this;
+    }
     public static GhostStageManager GetInstance {
         get{
-            if (instance == null) {
-                instance = new GhostStageManager();
-            }
                 return instance;
-            
         }
     }
     public void PlusStageStep() {

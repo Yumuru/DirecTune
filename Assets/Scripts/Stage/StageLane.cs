@@ -10,12 +10,12 @@ public class StageLane : MonoBehaviour
     [Tooltip("Stage parts num")]
     [SerializeField]
     int m_stageNum;
-    StageParameters[] m_stage = new StageParameters[3];
+    public StageParameters[] m_stage = new StageParameters[3];
 
     #region Add after
 
     Vector3 position, direction;
-    List<Ghost> ghosts;
+    List<EnemyGhost> ghosts= new List<EnemyGhost>();
 
     #endregion
 
@@ -23,9 +23,6 @@ public class StageLane : MonoBehaviour
 
 
     private void Awake() {
-        GhostStageManager.GetInstance.m_makeStage = m_makestageParts.GetComponent<StageLane>();
-    }
-    private void Start() {
         for (int i = 0; i < 3; i++) {
             m_stage[i] = new StageParameters();
         }
