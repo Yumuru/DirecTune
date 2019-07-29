@@ -7,24 +7,21 @@ using UniRx.Triggers;
 
 public class GhostManager : MonoBehaviour {
     public static GhostManager Instance { get; set; }
+    public static EnemyGhost EnemyGhostPrefab { get { return Instance.m_enemyGhostPrefab; } }
+    [SerializeField]
+    EnemyGhost m_enemyGhostPrefab;
 
     void Awake() => Instance = this;
 
-    public static Ghost Emerge(GhostNoteParameter parameter) {
-        return new Ghost { 
-            m_parameter = parameter
-        };
+    private void Update() {
+
+    }
+    //これが呼ばれたらゴーストが出現する。
+    public static EnemyGhost Emerge(GhostNoteParameter parameter) {
+        var ghost = Instantiate(EnemyGhostPrefab);
+        ghost.Initialize(parameter);
+        return ghost;
     }
 }
 
-public class Ghost {
-    public GhostNoteParameter m_parameter;
-    public int m_position = 0;
-    public Subject<Unit> OnDestroy = new Subject<Unit>();
-    public void Step() {
-        m_position++;
-        if (m_position == TimingManager.StepNum) {
-            Debug.Log(Music.Just);
-        }
-    }
-}
+

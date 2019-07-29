@@ -15,7 +15,7 @@ public class YTestScript : MonoBehaviour {
             this.UpdateAsObservable()
                 .Where(_ => Music.IsJustChanged).Take(1)
                 .SelectMany(TimingManager.OnStep)
-                .TakeUntil(ghost.OnDestroy)
+                .TakeUntil(ghost.OnDestroyAsObservable())
                 .Subscribe(_ => {
                     ghost.Step();
                 });
