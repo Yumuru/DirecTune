@@ -8,8 +8,13 @@ using UniRx.Triggers;
 public class GameManager : MonoBehaviour {
     public static GameManager Instance { get; private set; }
     public static Subject<GhostNoteParameter> EmergeGhost { get { return Instance.m_emergeGhost; } }
-    public static Subject<Unit> m_ghostStep { get; } = new Subject<Unit>();
+    public static Subject<Unit> GhostStep { get; } = new Subject<Unit>();
+    public static MusicPlayer CurrentPlayer { get; set; }
+    public static GameScore GameScore { get { return Instance.m_gameScore; } }
 
     Subject<GhostNoteParameter> m_emergeGhost = new Subject<GhostNoteParameter>();
-    void Awake() => Instance = this;
+    public GameScore m_gameScore;
+    void Awake() {
+        Instance = this;
+    } 
 }
