@@ -5,10 +5,11 @@ using UniRx;
 using UniRx.Triggers;
 
 public class GamePlayerMain : MonoBehaviour {
-    public VRPlayer m_vRPlayer;
-    
-    public Lanes lanes;
-    public Lane m_currentLane;
+    VRPlayer m_vRPlayer;
+
+    public LaneParameter m_laneCurrent;
+
+    private void Awake() => m_vRPlayer = GetComponent<VRPlayer>();
 
     void Start() {
         this.UpdateAsObservable()
@@ -17,21 +18,13 @@ public class GamePlayerMain : MonoBehaviour {
 
     void CheckLane() {
         var min = Mathf.Infinity;
-        foreach (var lane in lanes.lanes) {
-            var toLane = lane.transform.position - transform.position;
-            var angle = Vector3.Angle(transform.forward, toLane);
+        var lanes = GhostStageManager.GetInstance.m_makeStage.m_stage;
+        foreach (var lane in lanes) {
+            var angle = Vector3.Angle(m_vRPlayer.head.transform.forward, lane.m_direction);
             if (angle < min) {
                 min = angle;
-                m_currentLane = lane;
+                m_laneCurrent = lane;
             }
         }
     }
-}
-
-public class Lanes {
-    public List<Lane> lanes = new List<Lane>();
-}
-
-public class Lane {
-    public Transform transform;
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class GhostTest : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class GhostTest : MonoBehaviour
             m_enemyGhost.Initialize(parameter);
         }
         if (Input.GetKeyDown(KeyCode.U)) {
-            m_enemyGhost.Step();
+            m_enemyGhost.m_onStep.OnNext(Unit.Default);
         }
     }
 }
