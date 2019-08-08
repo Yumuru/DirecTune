@@ -17,8 +17,4 @@ public class GameManager : MonoBehaviour {
     void Awake() {
         Instance = this;
     }
-
-    private void OnDestroy() {
-        GameScore.m_onDestroy.OnNext(Unit.Default);
-    }
 }

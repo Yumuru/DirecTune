@@ -5,24 +5,33 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public static class YumuruUtil {
+public static class ExtendMethods {
+    public static T Do<T>(this T obj, Action action) {
+        action(); return obj;
+    }
+    public static T Do<T>(this T obj, Action<T> action) {
+        action(obj); return obj;
+    }
+
     public static IObservable<TimeParameter> Anim(this Component component, float actTime) {
-        var sTime = Time.time;
         var subject = new Subject<TimeParameter>();
-        var stop = new Subject<Unit>();
-        Observable.Return(Unit.Default)
-            .SelectMany(component.UpdateAsObservable())
-            .TakeUntil(stop)
+        var sTime = Time.time;
+        var stop = false;
+        component.UpdateAsObservable()
+            .TakeUntil(component.OnDestroyAsObservable())
+            .TakeWhile(_ => !stop)
             .Subscribe(_ => {
                 var time = Time.time - sTime;
                 if (time > actTime) {
                     subject.OnNext(new TimeParameter() { time = actTime, rate = 1f });
-                    stop.OnNext(Unit.Default);
+                    stop = true;
+                    return;
                 }
                 subject.OnNext(new TimeParameter() { time = time, rate = time / actTime });
             });
-        return subject.TakeUntil(stop);
+        return subject;
     }
+
     public struct TimeParameter {
         public float time;
         public float rate;

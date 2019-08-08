@@ -12,6 +12,7 @@ public class EnemyGhost : MonoBehaviour {
     public Subject<Unit> m_onStep = new Subject<Unit>();
     //public int m_position = 0;//lane position->GhostNoteParameter.m_box
     void SetStep() {
+
         m_onStep
             .TakeWhile(_ => m_position != 0)
             .Subscribe(_ => {

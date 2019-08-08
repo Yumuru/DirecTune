@@ -14,6 +14,5 @@ public class PerformerGhosts : MonoBehaviour {
             .GetComponentsInChildren<Transform>()
             .OrderBy(v => Guid.NewGuid())
             .ToList();
-        var linkedList = new LinkedList<Transform>(positions);
     }
 }
