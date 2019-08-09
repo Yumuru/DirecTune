@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
     public static Subject<GhostNoteParameter> EmergeGhost { get { return Instance.m_emergeGhost; } }
     public static Subject<Unit> GhostStep { get; } = new Subject<Unit>();
     public static MusicPlayer CurrentPlayer { get; set; }
-    public static GameScore GameScore { get; } = new GameScore();
+    public static GameScore GameScore { get { return Instance.m_gameScore; } }
 
     Subject<GhostNoteParameter> m_emergeGhost = new Subject<GhostNoteParameter>();
     public GameScore m_gameScore;

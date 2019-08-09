@@ -35,9 +35,9 @@ public class MusicPlayer  {
     void PlayClips() {
         var current = 0;
         var disposable =
-        GameManager.GameScore.m_score
+        GameManager.GameScore.m_rateScore
             .Where(_ => current < m_clips.Length)
-            .Where(score => m_clips[current].m_score >= score)
+            .Where(s => m_clips[current].m_rateScore >= s)
             .Subscribe(_ => {
                 m_sourceMusic.clip = m_clips[current].m_clip;
                 m_sourceMusic.timeSamples = Music.TimeSamples;
@@ -52,7 +52,7 @@ public class MusicPlayer  {
 
     [Serializable]
     public struct Clip {
-        public float m_score;
+        public float m_rateScore;
         public AudioClip m_clip;
     }
 }

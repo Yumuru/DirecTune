@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -10,13 +11,13 @@ public class EnemyGhost : MonoBehaviour {
     public GhostNoteParameter m_parameter;
     public bool m_canConduct = false;
     public Subject<Unit> m_onStep = new Subject<Unit>();
+    Action m_remove;
     //public int m_position = 0;//lane position->GhostNoteParameter.m_box
     void SetStep() {
-
+        var lane = GhostStageManager.GetInstance.m_makeStage.m_stage[m_parameter.m_lane];
         m_onStep
             .TakeWhile(_ => m_position != 0)
             .Subscribe(_ => {
-                var lane = GhostStageManager.GetInstance.m_makeStage.m_stage[m_parameter.m_lane];
                 var cPos = transform.position;
                 var nextPos = lane.m_block[--m_position].transform.position;
                 this.Anim(GhostManager.TimeGhostStep) // Yumuruさんによるコンポーネント拡張メソッド
@@ -32,9 +33,10 @@ public class EnemyGhost : MonoBehaviour {
             });
         m_onStep
             .SkipWhile(_ => m_position != 0)
-            .SelectMany(m_onStep.Skip(1).Take(1))
+            .SelectMany(_ => m_onStep)
+            .Take(1)
             .Subscribe(_ => {
-                GhostStageManager.GetInstance.m_makeStage.m_stage[m_parameter.m_lane].m_ghosts.Remove(this);
+                m_remove();
                 Destroy(gameObject);
             });
     }
@@ -44,7 +46,7 @@ public class EnemyGhost : MonoBehaviour {
         m_position = lane.m_block.Length-1;
         transform.position = lane.m_block[m_position].transform.position;
         transform.rotation = Quaternion.LookRotation(-lane.m_direction, Vector3.up);
-        lane.m_ghosts.Add(this);
+        m_remove = lane.AddGhost(this);
 
         Instantiate(GhostManager.EmergeParticle, transform.position, transform.rotation).PlayDestroy();
 
