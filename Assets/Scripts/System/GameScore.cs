@@ -13,10 +13,11 @@ public class GameScore : MonoBehaviour{
     public ReactiveProperty<float> m_rateScore = new ReactiveProperty<float>(0f);
 
     public void Start() {
-        m_numGhost.Subscribe(max => 
         m_numConductedGhost.Subscribe(num => {
-            m_rateScore.Value = (float)num / max;
+            m_rateScore.Value = (float)num / m_numGhost.Value;
+            print(m_rateScore.Value);
             m_score.Value = (int)(m_rateScore.Value * m_maxScore);
-        }));
+        });
+        m_numConductedGhost.Value = 0;
     }
 }

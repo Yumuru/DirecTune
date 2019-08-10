@@ -13,6 +13,14 @@ public class YTestScript : MonoBehaviour {
 
     void Start() {
         this.UpdateAsObservable()
+            .Where(_ => Input.GetKeyDown(KeyCode.U))
+            .Subscribe(_ => 
+                GameManager.GameScore
+                    .m_numConductedGhost.Value++);
+    }
+
+    void ParticleTest() {
+        this.UpdateAsObservable()
             .Where(_ => Input.GetKeyDown(KeyCode.T))
             .Subscribe(_ => {
                 Instantiate(m_particle, transform.position, transform.rotation)

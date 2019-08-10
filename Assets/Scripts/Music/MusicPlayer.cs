@@ -36,9 +36,12 @@ public class MusicPlayer  {
         var current = 0;
         var disposable =
         GameManager.GameScore.m_rateScore
-            .Where(_ => current < m_clips.Length)
+            .Do(_ => Debug.Log(1))
+            .TakeWhile(_ => current < m_clips.Length)
+            .Do(_ => Debug.Log(2))
             .Where(s => m_clips[current].m_rateScore >= s)
             .Subscribe(_ => {
+                Debug.Log(3);
                 m_sourceMusic.clip = m_clips[current].m_clip;
                 m_sourceMusic.timeSamples = Music.TimeSamples;
                 m_sourceMusic.Play();

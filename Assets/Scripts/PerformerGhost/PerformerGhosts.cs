@@ -12,17 +12,17 @@ public class PerformerGhosts : MonoBehaviour {
     public List<PerformerGhost> m_performerGhosts = new List<PerformerGhost>();
 
     private void Start() {
-        m_pointDrumGhosts = new Point();
-        m_pointClarinetGhosts = new Point();
+        m_pointDrumGhosts.Start();
+        m_pointClarinetGhosts.Start();
     }
 
     [Serializable]
     public class Point {
         public List<GameObject> m_points; 
         public GameObject m_prefab;
-        public int m_sRateScore, m_eRateScore;
+        public float m_sRateScore, m_eRateScore;
 
-        public Point() {
+        public void Start() {
             var points = new LinkedList<Transform>(m_points
                 .Select(g => g.transform)
                 .OrderBy(i => Guid.NewGuid())

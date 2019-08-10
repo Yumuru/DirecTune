@@ -12,6 +12,12 @@ public static class Affector {
     public static Affector<T1, T2> New<T1, T2>(Affector<T1, T2> affector) => affector;
     public static Affector<T1, T3> Append<T1, T2, T3>(this Affector<T1, T2> affector, Affector<T2, T3> next) =>
         v => next(affector(v));
+    public static Affector<T1, T2> Append<T1, T2>(this Affector<T1, T2> affector, Action<T2> action) =>
+        v => { 
+            var ret = affector(v);
+            action(ret);
+            return ret;
+        };
 
     public static Affector<T, T> New<T>() => v => v;
 
