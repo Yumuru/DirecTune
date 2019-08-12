@@ -12,7 +12,7 @@ public class EnemyGhostLife : MonoBehaviour {
             var ghost = GhostManager.Emerge(para);
             ghost.UpdateAsObservable()
                 .Where(_ => Music.IsJustChanged).Take(1)
-                .SelectMany(TimingManager.OnStep)
+                .SelectMany(_ => TimingManager.OnStep)
                 .TakeUntil(ghost.OnDestroyAsObservable())
                 .Subscribe(ghost.m_onStep);
         });

@@ -1,8 +1,107 @@
 fileFormatVersion: 2
-guid: a8ddcc8855b634da0a8adae74e029402
+guid: 39fe424ff45af40fcba0484152b014c6
 ModelImporter:
   serializedVersion: 25
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: Arm_L
+  - first:
+      1: 100002
+    second: Arm_R
+  - first:
+      1: 100004
+    second: Armature
+  - first:
+      1: 100006
+    second: Ghost
+  - first:
+      1: 100008
+    second: //RootNode
+  - first:
+      1: 100010
+    second: Hand_L
+  - first:
+      1: 100012
+    second: Hand_L_end
+  - first:
+      1: 100014
+    second: Hand_R
+  - first:
+      1: 100016
+    second: Hand_R_end
+  - first:
+      1: 100018
+    second: Head
+  - first:
+      1: 100020
+    second: Head_end
+  - first:
+      1: 100022
+    second: Shoulder_L
+  - first:
+      1: 100024
+    second: Shoulder_R
+  - first:
+      4: 400000
+    second: Arm_L
+  - first:
+      4: 400002
+    second: Arm_R
+  - first:
+      4: 400004
+    second: Armature
+  - first:
+      4: 400006
+    second: Ghost
+  - first:
+      4: 400008
+    second: //RootNode
+  - first:
+      4: 400010
+    second: Hand_L
+  - first:
+      4: 400012
+    second: Hand_L_end
+  - first:
+      4: 400014
+    second: Hand_R
+  - first:
+      4: 400016
+    second: Hand_R_end
+  - first:
+      4: 400018
+    second: Head
+  - first:
+      4: 400020
+    second: Head_end
+  - first:
+      4: 400022
+    second: Shoulder_L
+  - first:
+      4: 400024
+    second: Shoulder_R
+  - first:
+      21: 2100000
+    second: Ghost
+  - first:
+      21: 2100002
+    second: Black
+  - first:
+      43: 4300000
+    second: Ghost
+  - first:
+      74: 7400000
+    second: Armature|Fun
+  - first:
+      74: 7400002
+    second: Armature|Play
+  - first:
+      95: 9500000
+    second: //RootNode
+  - first:
+      137: 13700000
+    second: Ghost
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -30,8 +129,66 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
-    isReadable: 0
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|Fun
+      takeName: Armature|Fun
+      internalID: 7400000
+      firstFrame: 0
+      lastFrame: 97
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|Play
+      takeName: Armature|Play
+      internalID: 7400002
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1

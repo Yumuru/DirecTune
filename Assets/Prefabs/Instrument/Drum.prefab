@@ -38,11 +38,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5619167134696324003}
     m_Modifications:
-    - target: {fileID: 1858721905705757450, guid: 6226848e7c725f449a18bedcce8af7ef,
-        type: 3}
-      propertyPath: m_Name
-      value: drum3
-      objectReference: {fileID: 0}
     - target: {fileID: 1858721905705727786, guid: 6226848e7c725f449a18bedcce8af7ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,6 +107,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858721905705757450, guid: 6226848e7c725f449a18bedcce8af7ef,
+        type: 3}
+      propertyPath: m_Name
+      value: drum3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6226848e7c725f449a18bedcce8af7ef, type: 3}

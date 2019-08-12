@@ -7,7 +7,7 @@ public class StageLane : MonoBehaviour
 {
     [Tooltip("This is stage parts")]
     [SerializeField]
-    private GameObject m_blocks,m_center,m_right,m_left,m_makestageParts;
+    private GameObject m_blocks,m_center,m_right,m_left;
     [SerializeField]
     float m_startRadius, m_lengthStep;
     [Tooltip("Stage parts num")]
@@ -54,7 +54,7 @@ public class StageLane : MonoBehaviour
         m_stage[num].m_block = new GameObject[TimingManager.LaneLength];
         var rotation = Quaternion.LookRotation(direction, Vector3.up);
         for (int i = 0; i < TimingManager.LaneLength; i++) {
-            var pos = direction * (m_startRadius + 
+            var pos = transform.position + direction * (m_startRadius + 
                 m_lengthStep * i);
             m_stage[num].m_block[i] = Instantiate(m_blocks, pos, rotation);
         }

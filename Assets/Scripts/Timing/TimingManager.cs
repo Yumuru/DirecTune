@@ -33,7 +33,8 @@ public class TimingManager : MonoBehaviour {
         var subject = new Subject<Unit>();
         var subjectAfter = new Subject<Unit>();
         this.UpdateAsObservable()
-            .Where(_ => Music.IsJustChangedAt(stepTiming))
+            .TakeUntil(this.OnDestroyAsObservable())
+            .Where(_ => Music.Just > stepTiming)
             .Subscribe(_ => {
                 subject.OnNext(Unit.Default);
                 subjectAfter.OnNext(Unit.Default);

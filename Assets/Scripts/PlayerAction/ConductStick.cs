@@ -40,12 +40,17 @@ public class ConductStick : MonoBehaviour {
 
     void ConductGhost(EnemyGhost ghost) {
         var lane = m_playerMain.m_laneCurrent;
-        lane.m_ghosts.Remove(ghost);
+        ghost.Damage();
+        GameManager.GameScore.m_numConductedGhost.Value++;
         Instantiate(m_succParticles.RandomGet()
             , lane.m_block[0].transform.position
             , lane.m_block[0].transform.rotation)
             .PlayDestroy();
-        Observable.Timer(TimeSpan.FromSeconds(0.1f))
-            .Subscribe(_ => Destroy(ghost.gameObject));
+        if (ghost.m_parameter.m_strength == 2) {
+            ghost.goBackAnimPlay(ghost.transform);
+        } else {
+            Observable.Timer(TimeSpan.FromSeconds(0.1f))
+                .Subscribe(_ => Destroy(ghost.gameObject));
+        }
     }
 }

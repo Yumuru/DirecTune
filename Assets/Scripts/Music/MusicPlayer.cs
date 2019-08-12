@@ -35,24 +35,29 @@ public class MusicPlayer  {
     void PlayClips() {
         var current = 0;
         var disposable =
-        GameManager.GameScore.m_score
-            .Where(_ => current < m_clips.Length)
-            .Where(score => m_clips[current].m_score >= score)
+        GameManager.GameScore.m_rateScore
+            .TakeWhile(_ => current < m_clips.Length)
+            .Where(s => s >= m_clips[current].m_rateScore)
             .Subscribe(_ => {
                 m_sourceMusic.clip = m_clips[current].m_clip;
                 m_sourceMusic.timeSamples = Music.TimeSamples;
                 m_sourceMusic.Play();
                 current++;
             });
-        m_onStop.Subscribe(_ => {
+        
+        Observable.EveryUpdate()
+            .Where(_ => Music.IsJustChangedAt(new Timing(39)))
+            .Subscribe(_ => {
             disposable.Dispose();
             m_sourceMusic.Stop();
+            m_sourceNonMusic.Stop();
+            Music.Stop();
         });
     }
 
     [Serializable]
     public struct Clip {
-        public float m_score;
+        public float m_rateScore;
         public AudioClip m_clip;
     }
 }

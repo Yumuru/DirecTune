@@ -25,15 +25,17 @@ public enum GhostPattern {
 }
 
 public static class MusicChartFunc {
-    public static TimingSequencer ReadChart(this TimingSequencer seq, MusicChart chart) {
+    public static void ReadChart(this TimingSequencer sequencer, MusicChart chart) {
         var laneTimingLength = new Timing(TimingManager.LaneTimingLength);
+        var ghostNum = 0;
         foreach (var ghostNote in chart.m_ghostNotes) {
+            ghostNum++;
             var popTiming = new Timing(ghostNote.m_timing);
             popTiming.Subtract(laneTimingLength, Music.CurrentSection);
-            seq.Add(popTiming).SetAction(tim => {
+            sequencer.Add(popTiming).SetAction(tim => {
                 GameManager.EmergeGhost.OnNext(ghostNote);
             });
         }
-        return seq;
+        GameManager.GameScore.m_numGhost.Value = ghostNum;
     }
 }
