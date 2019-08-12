@@ -6,48 +6,57 @@ using UnityEngine;
 using UniRx;
 
 public class PerformerGhosts : MonoBehaviour {
-    public Point m_pointDrumGhosts;
-    public Point m_pointClarinetGhosts;
-
+    public Point[] m_points;
+    [NonSerialized]
     public List<PerformerGhost> m_performerGhosts = new List<PerformerGhost>();
 
     private void Start() {
-        m_pointDrumGhosts.Start();
-        m_pointClarinetGhosts.Start();
+        foreach (var point in m_points) {
+            point.Start();
+        }
     }
 
     [Serializable]
     public class Point {
-        public List<GameObject> m_points; 
+        public GameObject m_LootPoints; 
         public GameObject m_prefab;
         public float m_sRateScore, m_eRateScore;
 
         public void Start() {
-            var points = new LinkedList<Transform>(m_points
-                .Select(g => g.transform)
+            var points = new LinkedList<Transform>(
+                m_LootPoints.GetComponentsInChildren<Transform>()
+                .Skip(1)
                 .OrderBy(i => Guid.NewGuid())
                 .ToArray());
 
-            var num = m_points.Count();
+            var num = points.Count();
             var cNum = 0;
             var threshold = 1f / num;
-            GameManager.GameScore
-                .m_rateScore
-                .Where(s => s >= m_sRateScore && s <= m_eRateScore)
-                .Select(s => (s - m_sRateScore) / (m_eRateScore - m_sRateScore))
-                .Subscribe(s => {
-                    while (s > cNum * threshold) {
-                        Pop(points.First());
-                        points.RemoveFirst();
-                        cNum++;
-                    }
-                });
+            Action<float> pop = s => {
+                while (s >= cNum * threshold) {
+                    if (cNum >= num) return;
+                    Pop(points.First());
+                    points.RemoveFirst();
+                    cNum++;
+                }
+            };
+            if (m_sRateScore == 0f && m_eRateScore == 0f) {
+                pop(1f);
+            } else {
+                GameManager.GameScore
+                    .m_rateScore
+                    .Where(s => s >= m_sRateScore && s <= m_eRateScore)
+                    .Select(s => (s - m_sRateScore) / (m_eRateScore - m_sRateScore))
+                    .Subscribe(pop);
+            }
         }
 
         void Pop(Transform transform) {
             var obj = Instantiate(m_prefab);
+            obj.transform.parent = transform;
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
+            obj.transform.localScale = Vector3.one;
         }
     }
 }

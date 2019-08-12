@@ -29,7 +29,7 @@ public static class MusicChartFunc {
         var laneTimingLength = new Timing(TimingManager.LaneTimingLength);
         var ghostNum = 0;
         foreach (var ghostNote in chart.m_ghostNotes) {
-            ghostNum += ghostNote.m_strength;
+            ghostNum++;
             var popTiming = new Timing(ghostNote.m_timing);
             popTiming.Subtract(laneTimingLength, Music.CurrentSection);
             sequencer.Add(popTiming).SetAction(tim => {

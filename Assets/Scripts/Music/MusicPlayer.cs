@@ -36,20 +36,22 @@ public class MusicPlayer  {
         var current = 0;
         var disposable =
         GameManager.GameScore.m_rateScore
-            .Do(_ => Debug.Log(1))
             .TakeWhile(_ => current < m_clips.Length)
-            .Do(_ => Debug.Log(2))
-            .Where(s => m_clips[current].m_rateScore >= s)
+            .Where(s => s >= m_clips[current].m_rateScore)
             .Subscribe(_ => {
-                Debug.Log(3);
                 m_sourceMusic.clip = m_clips[current].m_clip;
                 m_sourceMusic.timeSamples = Music.TimeSamples;
                 m_sourceMusic.Play();
                 current++;
             });
-        m_onStop.Subscribe(_ => {
+        
+        Observable.EveryUpdate()
+            .Where(_ => Music.IsJustChangedAt(new Timing(39)))
+            .Subscribe(_ => {
             disposable.Dispose();
             m_sourceMusic.Stop();
+            m_sourceNonMusic.Stop();
+            Music.Stop();
         });
     }
 
