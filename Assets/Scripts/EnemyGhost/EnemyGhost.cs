@@ -27,7 +27,7 @@ public class EnemyGhost : MonoBehaviour {
 
     // 開発中の自作ライブラリを試用してみました by ユムル
     void GeneAnim() {
-        var lane = GhostStageManager.GetInstance.m_makeStage.m_stage[m_parameter.m_lane];
+        var lane = GhostStageManager.StageLane.m_lanes[m_parameter.m_lane];
         // 1ステップアニメーションの生成
         var stepAnim = new TimeAffector<Transform>()
             .Append(0f, GhostManager.TimeGhostStep, t => new {
@@ -112,7 +112,7 @@ public class EnemyGhost : MonoBehaviour {
 
     public void Initialize(GhostNoteParameter parameter) {
         m_parameter = parameter;
-        var lane = GhostStageManager.GetInstance.m_makeStage.m_stage[parameter.m_lane];
+        var lane = GhostStageManager.StageLane.m_lanes[parameter.m_lane];
         m_position = lane.m_block.Length-1;
         transform.position = lane.m_block[m_position].transform.position;
         transform.rotation = Quaternion.LookRotation(-lane.m_direction, Vector3.up);

@@ -12,13 +12,9 @@ public class StageLane : MonoBehaviour
     float m_startRadius, m_lengthStep;
     [Tooltip("Stage parts num")]
     [SerializeField]
-    int m_stageNum;
-    public LaneParameter[] m_stage = new LaneParameter[3];
+    public LaneParameter[] m_lanes = new LaneParameter[3];
 
     #region Add after
-
-    Vector3 position, direction;
-    List<EnemyGhost> ghosts= new List<EnemyGhost>();
 
     #endregion
 
@@ -31,16 +27,16 @@ public class StageLane : MonoBehaviour
             .Select(v => v.normalized)
             .ToArray();
         for (int i = 0; i < 3; i++) {
-            m_stage[i] = new LaneParameter();
+            m_lanes[i] = new LaneParameter();
             SetLane(i, dires[i]);
         }
     }
     private void Update() {
         /*
         if(Input.GetKeyDown(KeyCode.M)){
-            print(GhostStageManager.GetInstance.m_stageStep);
+            print(GhostStageManager.GetInstance.m_lanesStep);
             GhostStageManager.GetInstance.PlusStageStep();
-            GhostStageManager.GetInstance.MakeStage(GhostStageManager.GetInstance.m_stageStep);
+            GhostStageManager.GetInstance.MakeStage(GhostStageManager.GetInstance.m_lanesStep);
         }
         */
     }
@@ -50,16 +46,36 @@ public class StageLane : MonoBehaviour
     #region Method Call
 
     public void SetLane(int num, Vector3 direction) {
-        m_stage[num].m_direction = direction;
-        m_stage[num].m_block = new GameObject[TimingManager.LaneLength];
+        m_lanes[num].m_direction = direction;
+        m_lanes[num].m_block = new GameObject[TimingManager.LaneLength];
         var rotation = Quaternion.LookRotation(direction, Vector3.up);
         for (int i = 0; i < TimingManager.LaneLength; i++) {
             var pos = transform.position + direction * (m_startRadius + 
                 m_lengthStep * i);
-            m_stage[num].m_block[i] = Instantiate(m_blocks, pos, rotation);
+            m_lanes[num].m_block[i] = Instantiate(m_blocks, pos, rotation);
         }
     }
 
     #endregion
 
+    public struct DireLane {
+        public LaneParameter lane;
+        public float dot;
+    }
+
+    public DireLane GetNearestDireLane(Vector3 dire, Vector3 baseP) {
+        DireLane nearestLane;
+        nearestLane.lane = null;
+        nearestLane.dot = -1f;
+        foreach (var lane in m_lanes) {
+            var dot = Vector3.Dot(
+                dire,
+                lane.m_block[0].transform.position - baseP);
+            if (nearestLane.dot > dot) {
+                nearestLane.lane = lane;
+                nearestLane.dot = dot;
+            }
+        }
+        return nearestLane;
+    }
 }
