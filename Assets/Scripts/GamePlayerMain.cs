@@ -8,7 +8,4 @@ public class GamePlayerMain : MonoBehaviour {
     VRPlayer m_vRPlayer;
 
     private void Awake() => m_vRPlayer = GetComponent<VRPlayer>();
-
-    void Start() {
-    }
 }

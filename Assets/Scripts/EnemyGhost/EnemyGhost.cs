@@ -7,22 +7,26 @@ using UniRx.Triggers;
 using static Easing;
 
 public class EnemyGhost : MonoBehaviour {
+    // Write at this place Parameter
     public int m_position;
-    public GhostNoteParameter m_parameter;
-    public bool m_canConduct = false;
-    public Subject<Unit> m_onStep = new Subject<Unit>();
-    public Transform m_direBaseJumpBack;
-    public Action Remove { get; private set; }
     public Renderer m_renderer;
     public Animator m_animator;
 
+    // Write Other Pace parameter
+    public bool m_canConduct = false;
+    public Transform m_direBaseJumpBack;
+
+    // It maybe deleted parameter
+    public GhostNoteParameter m_parameter;
+    public Subject<Unit> m_onStep = new Subject<Unit>();
+    public Action Remove { get; private set; }
     public Affector<Transform, IDisposable> stepAnimPlay;
     public Affector<Transform, IDisposable> goBackAnimPlay;
     public Affector<EnemyGhost, IDisposable> attackAnimPlay;
+    
+
 
     void Start() {
-        GeneAnim();
-        SetStep();
     }
 
     // 開発中の自作ライブラリを試用してみました by ユムル
