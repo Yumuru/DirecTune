@@ -6,6 +6,8 @@ using UniRx;
 using UniRx.Triggers;
 
 public class GhostManager : MonoBehaviour {
+	public static EnemyGhostStepController EnemyGhostStep { get; set; }
+
     public static GhostManager Instance { get; set; }
     public static EnemyGhost EnemyGhostPrefab { get { return Instance.m_enemyGhostPrefab; } }
     public static float TimeGhostStep { get { return Instance.m_timeGhostStep; } }

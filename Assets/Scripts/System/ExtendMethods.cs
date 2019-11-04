@@ -13,28 +13,24 @@ public static class ExtendMethods {
         action(obj); return obj;
     }
 
-    public static IObservable<TimeParameter> Anim(this Component component, float actTime) {
-        var subject = new Subject<TimeParameter>();
+    public static IObservable<TimeParameter<T>> Anim<T>(this IObservable<T> observable, float actTime) {
         var sTime = Time.time;
         var stop = false;
-        component.UpdateAsObservable()
-            .TakeUntil(component.OnDestroyAsObservable())
+        return observable
             .TakeWhile(_ => !stop)
-            .Subscribe(_ => {
+            .Select(v => {
                 var time = Time.time - sTime;
                 if (time > actTime) {
-                    subject.OnNext(new TimeParameter() { time = actTime, rate = 1f });
                     stop = true;
-                    return;
+                    return new TimeParameter<T>() { value = v, time = actTime, rate = 1f };
                 }
-                subject.OnNext(new TimeParameter() { time = time, rate = time / actTime });
+                return new TimeParameter<T>() { value = v, time = time, rate = time / actTime };
             });
-        return subject;
     }
 
-    public struct TimeParameter {
-        public float time;
-        public float rate;
+    public static IObservable<TimeParameter<Unit>> Anim(this Component component, float actTime) {
+        return Anim(component.UpdateAsObservable(), actTime)
+            .TakeUntil(component.OnDestroyAsObservable());
     }
 
     public static IObservable<Unit> PlayDestroy (this ParticleSystem particle) {
@@ -49,4 +45,10 @@ public static class ExtendMethods {
     public static T RandomGet<T>(this T[] values) {
         return values[UnityEngine.Random.Range(0, values.Length - 1)];
     }
+}
+
+public struct TimeParameter<T> {
+    public T value;
+    public float time;
+    public float rate;
 }

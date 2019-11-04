@@ -31,11 +31,12 @@ public class YTestScript : MonoBehaviour {
     void EmergeAndStepGhost() {
         GameManager.EmergeGhost.Subscribe(ghostNoteParameter => {
             var ghost = GhostManager.Emerge(ghostNoteParameter);
+			/*
             ghost.UpdateAsObservable()
                 .Where(_ => Music.IsJustChanged).Take(1)
                 .SelectMany(TimingManager.OnStep)
                 .TakeUntil(ghost.OnDestroyAsObservable())
-                .Subscribe(ghost.m_onStep);
+                .Subscribe(ghost.m_onStep);*/
         }).AddTo(gameObject);
     }
 

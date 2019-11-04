@@ -23,7 +23,7 @@ public class GhostTest : MonoBehaviour
             m_enemyGhost.Initialize(parameter);
         }
         if (Input.GetKeyDown(KeyCode.U)) {
-            m_enemyGhost.m_onStep.OnNext(Unit.Default);
+            //m_enemyGhost.m_onStep.OnNext(Unit.Default);
         }
     }
 }
