@@ -1,23 +1,56 @@
 fileFormatVersion: 2
 guid: f567aaa41f8b6de438635429246feb19
 ModelImporter:
-  serializedVersion: 23
-  fileIDToRecycleName:
-    100000: //RootNode
-    100002: Camera
-    100004: Lamp
-    100006: "\u5186\u67F1.003"
-    400000: //RootNode
-    400002: Camera
-    400004: Lamp
-    400006: "\u5186\u67F1.003"
-    2000000: Camera
-    2100000: burokk
-    2300000: "\u5186\u67F1.003"
-    3300000: "\u5186\u67F1.003"
-    4300000: "\u5186\u67F1.003"
-    10800000: Lamp
-  externalObjects: {}
+  serializedVersion: 25
+  internalIDToNameTable:
+  - first:
+      1: 100000
+    second: //RootNode
+  - first:
+      1: 100002
+    second: Camera
+  - first:
+      1: 100004
+    second: Lamp
+  - first:
+      1: 100006
+    second: "\u5186\u67F1.003"
+  - first:
+      4: 400000
+    second: //RootNode
+  - first:
+      4: 400002
+    second: Camera
+  - first:
+      4: 400004
+    second: Lamp
+  - first:
+      4: 400006
+    second: "\u5186\u67F1.003"
+  - first:
+      20: 2000000
+    second: Camera
+  - first:
+      21: 2100000
+    second: burokk
+  - first:
+      23: 2300000
+    second: "\u5186\u67F1.003"
+  - first:
+      33: 3300000
+    second: "\u5186\u67F1.003"
+  - first:
+      43: 4300000
+    second: "\u5186\u67F1.003"
+  - first:
+      108: 10800000
+    second: Lamp
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: burokk
+    second: {fileID: 2100000, guid: 7948c39c317e92f438109613d47c478e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -59,18 +92,19 @@ ModelImporter:
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
-    optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
     preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -79,10 +113,11 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
+  referencedClips: []
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
-    serializedVersion: 2
+    serializedVersion: 3
     human: []
     skeleton: []
     armTwist: 0.5
@@ -92,6 +127,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
