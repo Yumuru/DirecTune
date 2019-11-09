@@ -14,9 +14,11 @@ public class SoulFireController : MonoBehaviour
         foreach (var item in soulFireSet) {
             item.SetActive(false);
         }
+		/*
         GameManager.GameScore
             .m_rateScore
             .Subscribe(rate => score = rate * 150f);
+			*/
     }
 
     // Update is called once per frame
