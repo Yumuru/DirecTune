@@ -5,12 +5,13 @@ using UniRx;
 using UniRx.Triggers;
 
 public class GameManager_N : MonoBehaviour {
-	public static GameManager_N Ins { get; private set; }
+	[SerializeField]
+	public static GameManager_N Ins;
 	public EnemyGhostManager m_enemyGhostManager;
 	public StageManager m_stageManager;
 	public TimingManager_N timingManager;
 
-	public Subject<Unit> m_onPlay;
+	public Subject<Unit> m_onPlay = new Subject<Unit>();
 
 	private void Awake() {
 		Ins = this;

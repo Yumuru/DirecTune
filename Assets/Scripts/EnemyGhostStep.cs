@@ -8,7 +8,10 @@ public class EnemyGhostStep : MonoBehaviour {
 	TimingManager_N m_timingManager;
 	public float m_jumpHeight;
 	private void Awake() {
-		GameManager_N.Ins.m_enemyGhostManager.m_ghostStep = this;
+		GetComponentInParent<EnemyGhostManager>().m_ghostStep = this;
+	}
+
+	private void Start() {
 		m_timingManager = GameManager_N.Ins.timingManager;
 	}
 

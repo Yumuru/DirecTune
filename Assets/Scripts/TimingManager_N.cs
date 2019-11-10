@@ -9,7 +9,7 @@ public class TimingManager_N : MonoBehaviour {
 	public Timing m_stepLength;
 	public Subject<Unit> m_onStep = new Subject<Unit>();
 	private void Awake() {
-		GameManager_N.Ins.timingManager = this;
+		GetComponentInParent<GameManager_N>().timingManager = this;
 	}
 
 	private void Start() {

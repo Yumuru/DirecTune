@@ -14,21 +14,21 @@ public class StageLaneController : MonoBehaviour {
 	public Transform[] m_to;
 
 	private void Awake() {
-		GameManager_N.Ins.m_stageManager.stageLaneController = this;
+		GetComponentInParent<StageManager>().m_stageLaneController = this;
 	}
 
 	// Start is called before the first frame update
 	void Start() {
     }
 
-	[ExecuteInEditMode]
+	[ContextMenu("SetStageLane")]
 	void SetStageLane() {
 		foreach (var lane in m_stageLanes) { DestroyImmediate(lane.gameObject); }
 		m_stageLanes.Clear();
 		foreach (var to in m_to) {
 			var dire = (to.position - m_center.position).normalized;
 			var stageLane = Instantiate(m_stageLanePrefab);
-			stageLane.transform.parent = transform;
+			stageLane.transform.parent = m_center;
 			stageLane.transform.position = m_center.position;
 			stageLane.Initialize(dire);
 			m_stageLanes.Add(stageLane);

@@ -16,7 +16,7 @@ public class EnemyGhostConduct_N : MonoBehaviour {
 	private void Start() {
 		var head = m_stick.head;
 		var stageManager = GameManager_N.Ins.m_stageManager;
-		var laneController = stageManager.stageLaneController;
+		var laneController = stageManager.m_stageLaneController;
 		m_stick.UpdateAsObservable()
 			.Where(_ => m_stick.device.velocity.sqrMagnitude >= Mathf.Pow(m_thresholdSpeed, 2f))
 			.Subscribe(_ => {
