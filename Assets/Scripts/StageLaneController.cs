@@ -7,8 +7,8 @@ using UnityEditor;
 
 public class StageLaneController : MonoBehaviour {
 	[SerializeField]
-	StageLane_N m_stageLanePrefab;
-	public List<StageLane_N> m_stageLanes = new List<StageLane_N>();
+	StageLane m_stageLanePrefab;
+	public List<StageLane> m_stageLanes = new List<StageLane>();
 
 	public Transform m_center;
 	public Transform[] m_to;

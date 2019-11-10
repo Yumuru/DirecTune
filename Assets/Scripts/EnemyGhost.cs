@@ -4,16 +4,16 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class EnemyGhost_N : MonoBehaviour {
-	public StageLane_N m_stageLane;
-	TimingManager_N m_timingManager;
+public class EnemyGhost : MonoBehaviour {
+	public StageLane m_stageLane;
+	TimingManager m_timingManager;
 
 	public Subject<Unit> m_onConducted = new Subject<Unit>();
 	public Subject<Unit> m_onFailed = new Subject<Unit>();
 	public int m_blockPosition;
 	public ParticleSystem m_missEffectPrefab;
 
-	public void Initialize(StageLane_N stageLane, int blockPosition) {
+	public void Initialize(StageLane stageLane, int blockPosition) {
 		m_stageLane = stageLane;
 		m_blockPosition = blockPosition;
 		transform.position = m_stageLane.m_blocks[m_blockPosition].transform.position;
