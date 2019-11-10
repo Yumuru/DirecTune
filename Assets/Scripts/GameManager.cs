@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
     }
     public State m_correntState = State.Start;
 
+	public Subject<Unit> m_onEnd = new Subject<Unit>();
 	private void Awake() {
 		Ins = this;
 	}
