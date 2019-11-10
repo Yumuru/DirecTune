@@ -42,7 +42,8 @@ public class PerformerGhosts : MonoBehaviour {
                 pop(1f);
             } else {
                 GameManager.Ins.m_gameScore
-                    .m_rateScore
+                    .m_score
+                    .Select(p => p.m_rate)
                     .Where(s => s >= m_sRateScore && s <= m_eRateScore)
                     .Select(s => (s - m_sRateScore) / (m_eRateScore - m_sRateScore))
                     .Subscribe(pop);

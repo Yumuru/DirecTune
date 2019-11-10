@@ -16,7 +16,8 @@ public class MusicManager : MonoBehaviour {
     void Start() {
         var gameScore = GameManager.Ins.m_gameScore;
 
-        gameScore.m_rateScore.Subscribe(rate => {
+        gameScore.m_score.Subscribe(p => {
+            var rate = p.m_rate;
             foreach (var clip in m_clips) {
                 if (rate > clip.m_scoreRate) {
                     m_source.clip = clip.m_clip;

@@ -10,8 +10,7 @@ public class GameScore : MonoBehaviour{
     public int m_maxScore;
     public ReactiveProperty<int> m_numConductedGhost = new ReactiveProperty<int>(0);
     public ReactiveProperty<int> m_numGhost = new ReactiveProperty<int>(0);
-    public ReactiveProperty<int> m_score = new ReactiveProperty<int>(0);
-    public ReactiveProperty<float> m_rateScore = new ReactiveProperty<float>(0f);
+    public ReactiveProperty<ScoreParameter> m_score = new ReactiveProperty<ScoreParameter>(new ScoreParameter(){ m_score = 0, m_rate = 0f});
 
     public Text text1;
     public Text text2;
@@ -22,16 +21,15 @@ public class GameScore : MonoBehaviour{
 
     public void Start() {
         m_numConductedGhost.Subscribe(num => {
-            m_rateScore.Value = (float)num / m_numGhost.Value;
-            m_score.Value = (int)(m_rateScore.Value * m_maxScore);
+            var rate = (float)num / m_numGhost.Value;
+            var score = (int)(rate * m_maxScore);
+            m_score.Value = new ScoreParameter(){ m_rate = rate, m_score = score};
         });
         m_numConductedGhost.Value = 0;
+    }
 
-        m_score.Subscribe(s => {
-            text1.text = s.ToString();
-            text2.text = s.ToString();
-        });
-        m_rateScore.Value = 0f;
-        m_score.Value = 0;
+    public struct ScoreParameter {
+        public int m_score;
+        public float m_rate;
     }
 }

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	public MusicManager m_musicManager;
 
 	public Subject<Unit> m_onPlay = new Subject<Unit>();
-
+	public Subject<Unit> m_onEnd = new Subject<Unit>();
 	private void Awake() {
 		Ins = this;
 	}
