@@ -76,8 +76,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_stageLane: {fileID: 0}
+  m_missTime: 0.3
   m_blockPosition: 0
-  m_missEffectPrefab: {fileID: 0}
+  m_missEffectPrefab: {fileID: 445797122192465851, guid: 3705dd5df535a5148a984474224c0a10,
+    type: 3}
 --- !u!1001 &9024149334232548392
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
@@ -8,6 +9,7 @@ public class EnemyGhost : MonoBehaviour {
 	public StageLane m_stageLane;
 	TimingManager m_timingManager;
 
+	public float m_missTime;
 	public Subject<Unit> m_onConducted = new Subject<Unit>();
 	public Subject<Unit> m_onFailed = new Subject<Unit>();
 	public int m_blockPosition;
@@ -23,8 +25,11 @@ public class EnemyGhost : MonoBehaviour {
 	private void Start() {
 		m_onFailed
 			.Subscribe(_ => {
-				Instantiate(m_missEffectPrefab, transform.position, transform.rotation)
+				Instantiate(m_missEffectPrefab)
+					.Do(o => o.transform.position = transform.position)
 					.PlayDestroy();
+				Observable.Timer(TimeSpan.FromSeconds(m_missTime))
+					.Subscribe(_2 => Destroy(gameObject));
 			});
 		this.OnDestroyAsObservable()
 			.Subscribe(_ => {
