@@ -16,6 +16,10 @@ public class GameScore : MonoBehaviour{
     public Text text1;
     public Text text2;
 
+    void Awake() {
+        GetComponentInParent<GameManager>().m_gameScore = this;
+    }
+
     public void Start() {
         m_numConductedGhost.Subscribe(num => {
             m_rateScore.Value = (float)num / m_numGhost.Value;

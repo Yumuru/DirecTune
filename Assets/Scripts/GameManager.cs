@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	public StageManager m_stageManager;
 	public TimingManager timingManager;
 	public GameScore m_gameScore;
+	public MusicManager m_musicManager;
 
 	public Subject<Unit> m_onPlay = new Subject<Unit>();
 

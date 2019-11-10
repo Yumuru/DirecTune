@@ -20,6 +20,7 @@ public class EnemyGhostStep : MonoBehaviour {
 		m_timingManager.m_onStep
 			.TakeUntil(ghost.OnDestroyAsObservable())
 			.TakeUntil(ghost.m_onConducted)
+			.TakeWhile(_ => ghost.m_blockPosition >= 0)
 			.Subscribe(_ => {
 				var sPos = lane.m_blocks[ghost.m_blockPosition].transform.position;
 				ghost.m_blockPosition--;
@@ -35,7 +36,9 @@ public class EnemyGhostStep : MonoBehaviour {
 					});
 			});
 		m_timingManager.m_onStep
+			.TakeUntil(ghost.m_onFailed)
 			.Where(_ => ghost.m_blockPosition < 0)
+			.Take(1)
 			.Subscribe(_ => ghost.m_onFailed.OnNext(Unit.Default));
 	}
 }
