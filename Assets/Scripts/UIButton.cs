@@ -7,15 +7,24 @@ using UniRx.Triggers;
 public class UIButton : MonoBehaviour, IUIInput {
 	public UIInput uiInput { get; }
 	public Renderer renderer;
-	public Color m_normalColor, m_aimedColor, m_pushColor;
+	public Material m_normal, m_aimed, m_push;
+	enum State {
+		Normal,
+		Aimed,
+		Push
+	}
 	public void Start() {
 		uiInput.Initialize(this.OnDestroyAsObservable());
 		renderer = GetComponent<Renderer>();
+		var currentState = State.Normal;
+		var previousState = currentState;
 		uiInput.onAim
-			.Where(_ => !uiInput.isPushed)
-			.Select(b => b ? m_aimedColor : m_normalColor)
-			.Subscribe(c => {
-				renderer.material.color = c;
+			.Subscribe(b => {
+				if (b) {
+					previousState = currentState;
+					currentState = State.Aimed;
+
+				}
 			});
 	}
 }
