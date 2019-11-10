@@ -5,14 +5,17 @@ using UniRx;
 using UniRx.Triggers;
 
 public class EnemyGhostStep : MonoBehaviour {
-	TimingManager_N m_timingManager;
+	TimingManager m_timingManager;
 	public float m_jumpHeight;
 	private void Awake() {
-		GameManager_N.Ins.m_enemyGhostManager.m_ghostStep = this;
-		m_timingManager = GameManager_N.Ins.timingManager;
+		GetComponentInParent<EnemyGhostManager>().m_ghostStep = this;
 	}
 
-	public void SetAction(EnemyGhost_N ghost) {
+	private void Start() {
+		m_timingManager = GameManager.Ins.timingManager;
+	}
+
+	public void SetAction(EnemyGhost ghost) {
 		var lane = ghost.m_stageLane;
 		m_timingManager.m_onStep
 			.TakeUntil(ghost.OnDestroyAsObservable())

@@ -7,28 +7,28 @@ using UnityEditor;
 
 public class StageLaneController : MonoBehaviour {
 	[SerializeField]
-	StageLane_N m_stageLanePrefab;
-	public List<StageLane_N> m_stageLanes = new List<StageLane_N>();
+	StageLane m_stageLanePrefab;
+	public List<StageLane> m_stageLanes = new List<StageLane>();
 
 	public Transform m_center;
 	public Transform[] m_to;
 
 	private void Awake() {
-		GameManager_N.Ins.m_stageManager.stageLaneController = this;
+		GetComponentInParent<StageManager>().m_stageLaneController = this;
 	}
 
 	// Start is called before the first frame update
 	void Start() {
     }
 
-	[ExecuteInEditMode]
+	[ContextMenu("SetStageLane")]
 	void SetStageLane() {
 		foreach (var lane in m_stageLanes) { DestroyImmediate(lane.gameObject); }
 		m_stageLanes.Clear();
 		foreach (var to in m_to) {
 			var dire = (to.position - m_center.position).normalized;
 			var stageLane = Instantiate(m_stageLanePrefab);
-			stageLane.transform.parent = transform;
+			stageLane.transform.parent = m_center;
 			stageLane.transform.position = m_center.position;
 			stageLane.Initialize(dire);
 			m_stageLanes.Add(stageLane);

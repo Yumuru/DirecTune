@@ -4,19 +4,26 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class GameManager_N : MonoBehaviour {
-	public static GameManager_N Ins { get; private set; }
+public class GameManager : MonoBehaviour {
+	[SerializeField]
+	public static GameManager Ins;
 	public EnemyGhostManager m_enemyGhostManager;
 	public StageManager m_stageManager;
-	public TimingManager_N timingManager;
+	public TimingManager timingManager;
 
-	public Subject<Unit> m_onPlay;
+	public Subject<Unit> m_onPlay = new Subject<Unit>();
 
 	private void Awake() {
 		Ins = this;
 	}
 
 	private void Start() {
+		this.UpdateAsObservable()
+			.Where(_ => Input.GetKeyDown(KeyCode.P))
+			.Subscribe(_ => {
+				Music.Play("Music");
+				m_onPlay.OnNext(Unit.Default);
+			});
 		this.OnDestroyAsObservable()
 			.Subscribe(_ => m_onPlay.OnCompleted());
 	}

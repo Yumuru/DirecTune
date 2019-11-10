@@ -4,18 +4,18 @@ using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
 
-public class TimingManager_N : MonoBehaviour {
+public class TimingManager : MonoBehaviour {
 	public Timing m_current = new Timing(0);
 	public Timing m_stepLength;
 	public Subject<Unit> m_onStep = new Subject<Unit>();
 	private void Awake() {
-		GameManager_N.Ins.timingManager = this;
+		GetComponentInParent<GameManager>().timingManager = this;
 	}
 
 	private void Start() {
 		var start = new Timing(m_current);
 		Timing next = new Timing();
-		GameManager_N.Ins.m_onPlay.Subscribe(_ => {
+		GameManager.Ins.m_onPlay.Subscribe(_ => {
 			m_current.Copy(start);
 			next.Copy(m_current);
 			next.Add(m_stepLength, Music.CurrentSection);

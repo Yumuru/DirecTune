@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StageLane_N : MonoBehaviour {
+public class StageLane : MonoBehaviour {
 	[SerializeField]
-	StageLaneBlock m_firstBlockPrefab, m_blockPrefab;
-	public List<StageLaneBlock> m_blocks = new List<StageLaneBlock>();
+	GameObject m_firstBlockPrefab, m_blockPrefab;
+	public List<GameObject> m_blocks = new List<GameObject>();
 	public int m_num = 9;
 	public float m_offset, m_interval;
-	public List<EnemyGhost_N> m_ghosts = new List<EnemyGhost_N>();
+	public List<EnemyGhost> m_ghosts = new List<EnemyGhost>();
 	public void Initialize(Vector3 direction) {
 		transform.localRotation = Quaternion.LookRotation(
 			direction, Vector3.up);
@@ -22,12 +22,12 @@ public class StageLane_N : MonoBehaviour {
 			block.transform.parent = transform;
 			block.transform.localPosition = Vector3.forward *
 				(m_offset + m_interval * i);
-			block.transform.rotation = Quaternion.identity;
+			block.transform.localRotation = Quaternion.identity;
 			m_blocks.Add(block);
 		}
 	}
 
-	public EnemyGhost_N GetFirstGhost() {
+	public EnemyGhost GetFirstGhost() {
 		foreach (var ghost in m_ghosts) {
 			if (ghost.m_blockPosition == 0) return ghost;
 		}
