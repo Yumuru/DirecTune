@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public EnemyGhostManager m_enemyGhostManager;
 	public StageManager m_stageManager;
 	public TimingManager timingManager;
+	public GameScore m_gameScore;
 
 	public Subject<Unit> m_onPlay = new Subject<Unit>();
 
