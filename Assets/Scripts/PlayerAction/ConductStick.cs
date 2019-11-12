@@ -12,11 +12,17 @@ public class ConductStick : MonoBehaviour {
     public ParticleSystem[] m_succParticles;
     public bool isDebug;
 
+    public AudioClip sucSound;
+    AudioSource audioSource;
+
     void Start() {
         m_playerMain = GetComponentInParent<GamePlayerMain>();
         m_stick = GetComponentInParent<VRStick>();
 
         SetConductAction();
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.clip = sucSound;
     }
 
     void SetConductAction() {
@@ -52,5 +58,9 @@ public class ConductStick : MonoBehaviour {
             Observable.Timer(TimeSpan.FromSeconds(0.1f))
                 .Subscribe(_ => Destroy(ghost.gameObject));
         }
+
+
+        audioSource.Play();
+
     }
 }
