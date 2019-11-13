@@ -8,7 +8,7 @@ public class EnemyGhostConduct : MonoBehaviour {
 	VRStick m_stick;
 	public float m_thresholdSpeed;
 	public ParticleSystem[] m_succParticles;
-	public bool isDebug;
+	public AudioClip m_sucSound;
 	private void Awake() {
 		m_stick = GetComponentInParent<VRStick>();
 	}
@@ -17,6 +17,8 @@ public class EnemyGhostConduct : MonoBehaviour {
 		var head = m_stick.head;
 		var stageManager = GameManager.Ins.m_stageManager;
 		var laneController = stageManager.m_stageLaneController;
+		var audioSource = gameObject.AddComponent<AudioSource>();
+		audioSource.clip = m_sucSound;
 		m_stick.UpdateAsObservable()
 			.Where(_ => m_stick.device.velocity.sqrMagnitude >= Mathf.Pow(m_thresholdSpeed, 2f))
 			.Subscribe(_ => {
@@ -27,6 +29,7 @@ public class EnemyGhostConduct : MonoBehaviour {
                     if (dot > 0.8) {
 						var ghost = lane.GetFirstGhost();
 						if (ghost == null) return;
+						audioSource.Play();
 						ghost.m_onConducted.OnNext(Unit.Default);
 						Instantiate(m_succParticles.RandomGet()
 							, lane.m_blocks[0].transform.position
