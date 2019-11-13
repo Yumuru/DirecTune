@@ -26,6 +26,7 @@ public class EnemyGhost : MonoBehaviour {
         m_onConducted
             .Subscribe(_ => {
                 Destroy(gameObject);
+                GameManager.Ins.m_gameScore.m_numConductedGhost.Value++;
             });
 		m_onFailed
 			.Subscribe(_ => {
