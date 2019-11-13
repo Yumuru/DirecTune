@@ -1,113 +1,50 @@
 fileFormatVersion: 2
-guid: 39fe424ff45af40fcba0484152b014c6
+guid: 3b9ee342487e6d44e87347b294ac9d9a
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
   - first:
-      1: 100000
-    second: Arm_L
-  - first:
-      1: 100002
-    second: Arm_R
-  - first:
-      1: 100004
-    second: Armature
-  - first:
-      1: 100006
-    second: Ghost
-  - first:
-      1: 100008
-    second: //RootNode
-  - first:
-      1: 100010
-    second: Hand_L
-  - first:
-      1: 100012
-    second: Hand_L_end
-  - first:
-      1: 100014
-    second: Hand_R
-  - first:
-      1: 100016
-    second: Hand_R_end
-  - first:
-      1: 100018
-    second: Head
-  - first:
-      1: 100020
-    second: Head_end
-  - first:
-      1: 100022
-    second: Shoulder_L
-  - first:
-      1: 100024
-    second: Shoulder_R
-  - first:
-      4: 400000
-    second: Arm_L
-  - first:
-      4: 400002
-    second: Arm_R
-  - first:
-      4: 400004
-    second: Armature
-  - first:
-      4: 400006
-    second: Ghost
-  - first:
-      4: 400008
-    second: //RootNode
-  - first:
-      4: 400010
-    second: Hand_L
-  - first:
-      4: 400012
-    second: Hand_L_end
-  - first:
-      4: 400014
-    second: Hand_R
-  - first:
-      4: 400016
-    second: Hand_R_end
-  - first:
-      4: 400018
-    second: Head
-  - first:
-      4: 400020
-    second: Head_end
-  - first:
-      4: 400022
-    second: Shoulder_L
-  - first:
-      4: 400024
-    second: Shoulder_R
-  - first:
-      21: 2100000
-    second: Ghost
-  - first:
-      21: 2100002
-    second: Black
-  - first:
-      43: 4300000
-    second: Ghost
-  - first:
-      74: 7400000
+      74: -1009617258295595986
     second: Armature|Fun
   - first:
-      74: 7400002
+      74: 721881908579875736
     second: Armature|Play
-  - first:
-      95: 9500000
-    second: //RootNode
-  - first:
-      137: 13700000
-    second: Ghost
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100002, guid: 39fe424ff45af40fcba0484152b014c6, type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Ghost
     second: {fileID: 2100000, guid: f57923185702e2042a3650603cbcce15, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black
+    second: {fileID: 2100000, guid: 8731a25e2960e4a4ea43d5f303017659, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: gen
+    second: {fileID: 2100000, guid: 55e8a95213d7edc48ba7077f51c56d37, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: maincolor
+    second: {fileID: 2100000, guid: dadc43c8295c3764cb3c35dc2a34c406, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: tranpet
+    second: {fileID: 2100000, guid: c6a0d91cf710c71419c052c01451b9b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white
+    second: {fileID: 2100002, guid: 288b2c752efcd41d3aa1f7974764f35f, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
@@ -138,7 +75,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Armature|Fun
       takeName: Armature|Fun
-      internalID: 7400000
+      internalID: -1009617258295595986
       firstFrame: 0
       lastFrame: 97
       wrapMode: 0
@@ -147,7 +84,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -167,7 +104,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Armature|Play
       takeName: Armature|Play
-      internalID: 7400002
+      internalID: 721881908579875736
       firstFrame: 0
       lastFrame: 40
       wrapMode: 0
@@ -176,7 +113,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -193,7 +130,7 @@ ModelImporter:
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
-    isReadable: 1
+    isReadable: 0
   meshes:
     lODScreenPercentages: []
     globalScale: 1

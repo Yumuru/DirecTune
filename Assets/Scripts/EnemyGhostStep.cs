@@ -36,7 +36,8 @@ public class EnemyGhostStep : MonoBehaviour {
 					});
 			});
 		m_timingManager.m_onStep
-			.TakeUntil(ghost.m_onFailed)
+            .TakeUntil(ghost.m_onConducted)
+            .TakeUntil(ghost.m_onFailed)
 			.Where(_ => ghost.m_blockPosition < 0)
 			.Take(1)
 			.Subscribe(_ => ghost.m_onFailed.OnNext(Unit.Default));
