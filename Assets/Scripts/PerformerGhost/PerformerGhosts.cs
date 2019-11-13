@@ -7,8 +7,6 @@ using UniRx;
 
 public class PerformerGhosts : MonoBehaviour {
     public Point[] m_points;
-    [NonSerialized]
-    public List<PerformerGhost> m_performerGhosts = new List<PerformerGhost>();
 
     private void Start() {
         foreach (var point in m_points) {
@@ -43,8 +41,9 @@ public class PerformerGhosts : MonoBehaviour {
             if (m_sRateScore == 0f && m_eRateScore == 0f) {
                 pop(1f);
             } else {
-                GameManager.GameScore
-                    .m_rateScore
+                GameManager.Ins.m_gameScore
+                    .m_score
+                    .Select(p => p.m_rate)
                     .Where(s => s >= m_sRateScore && s <= m_eRateScore)
                     .Select(s => (s - m_sRateScore) / (m_eRateScore - m_sRateScore))
                     .Subscribe(pop);
