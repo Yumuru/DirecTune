@@ -25,7 +25,7 @@ public class EnemyGhostConduct : MonoBehaviour {
 				var dire = Vector3.Scale(m_stick.transform.position - head.transform.position, new Vector3(1,0,1)).normalized;
 				foreach (var lane in laneController.m_stageLanes) {
 					var dot = Vector3.Dot(dire, lane.transform.forward);
-                    print(dot);
+                    //print(dot);
                     if (dot > 0.8) {
 						var ghost = lane.GetFirstGhost();
 						if (ghost == null) return;

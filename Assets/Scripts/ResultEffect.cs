@@ -15,14 +15,13 @@ public class ResultEffect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Ins.m_onEnd.Subscribe(_=>{
-            this.gameObject.SetActive(true);
-            m_playableDirctor = this.GetComponent<PlayableDirector>();
-            m_playableDirctor.Play();    
-            GameScore gameScore = GameManager.Ins.m_gameScore;
-            score.text = gameScore.m_score.Value.m_score.ToString();
-            SetLetterImage(gameScore.m_score.Value.m_rate);
-        });
+        this.gameObject.SetActive(true);
+        m_playableDirctor = this.GetComponent<PlayableDirector>();
+        m_playableDirctor.Play();
+        GameScore gameScore = GameManager.Ins.m_gameScore;
+        score.text = gameScore.m_score.Value.m_score.ToString();
+        SetLetterImage(gameScore.m_score.Value.m_rate);
+        GameManager.Ins.m_currentState = GameManager.State.End;
     }
 
     void SetLetterImage(float rate){
