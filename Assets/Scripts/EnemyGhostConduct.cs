@@ -20,10 +20,11 @@ public class EnemyGhostConduct : MonoBehaviour {
 		m_stick.UpdateAsObservable()
 			.Where(_ => m_stick.device.velocity.sqrMagnitude >= Mathf.Pow(m_thresholdSpeed, 2f))
 			.Subscribe(_ => {
-				var dire = m_stick.transform.position - head.transform.position;
+				var dire = Vector3.Scale(m_stick.transform.position - head.transform.position, new Vector3(1,0,1)).normalized;
 				foreach (var lane in laneController.m_stageLanes) {
 					var dot = Vector3.Dot(dire, lane.transform.forward);
-					if (dot > 0.8) {
+                    print(dot);
+                    if (dot > 0.8) {
 						var ghost = lane.GetFirstGhost();
 						if (ghost == null) return;
 						ghost.m_onConducted.OnNext(Unit.Default);

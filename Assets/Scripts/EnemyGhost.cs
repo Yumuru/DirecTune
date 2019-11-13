@@ -22,7 +22,11 @@ public class EnemyGhost : MonoBehaviour {
 		transform.localRotation = Quaternion.LookRotation(Vector3.back, Vector3.up);
 	}
 
-	private void Start() {
+    private void Start() {
+        m_onConducted
+            .Subscribe(_ => {
+                Destroy(gameObject);
+            });
 		m_onFailed
 			.Subscribe(_ => {
 				Instantiate(m_missEffectPrefab)

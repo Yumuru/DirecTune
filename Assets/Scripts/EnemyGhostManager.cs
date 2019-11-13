@@ -9,7 +9,7 @@ public class EnemyGhostManager : MonoBehaviour {
 	EnemyGhost m_enemyGhostPrefab;
 	public EnemyGhostStep m_ghostStep;
 	public EnemyAttackGuide m_attackGuide;
-    public ParticleSystem m_spawnEffect;
+    public GameObject m_spawnEffect;
 
 	private void Awake() {
 		GetComponentInParent<GameManager>().m_enemyGhostManager = this;
@@ -29,9 +29,9 @@ public class EnemyGhostManager : MonoBehaviour {
 		ghost.OnDestroyAsObservable()
 			.Subscribe(_ => lane.m_ghosts.Remove(ghost));
 		m_ghostStep.SetAction(ghost);
-        var particle = Instantiate(m_spawnEffect);
-        particle.transform.position = ghost.transform.position;
-        particle.PlayDestroy();
+        /*var effect = Instantiate(m_spawnEffect);
+        effect.transform.position = ghost.transform.position;
+        effect.GetComponentInChildren<ParticleSystem>().PlayDestroy();*/
 		return ghost;
 	}
 }
