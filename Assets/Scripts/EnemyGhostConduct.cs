@@ -9,6 +9,7 @@ public class EnemyGhostConduct : MonoBehaviour {
 	public float m_thresholdSpeed;
 	public ParticleSystem[] m_succParticles;
 	public AudioClip m_sucSound;
+    public Vector3 effOffset = new Vector3(0f, 1f, 0f);
 	private void Awake() {
 		m_stick = GetComponentInParent<VRStick>();
 	}
@@ -32,7 +33,7 @@ public class EnemyGhostConduct : MonoBehaviour {
 						audioSource.Play();
 						ghost.m_onConducted.OnNext(Unit.Default);
 						Instantiate(m_succParticles.RandomGet()
-							, lane.m_blocks[0].transform.position
+							, lane.m_blocks[0].transform.position+effOffset
 							, lane.m_blocks[0].transform.rotation)
 							.PlayDestroy();
 					}
