@@ -9,6 +9,8 @@ public class EnemyGhost : MonoBehaviour {
 	public StageLane m_stageLane;
 	TimingManager m_timingManager;
 
+    public float high = 0.5f;
+
 	public float m_missTime;
 	public Subject<Unit> m_onConducted = new Subject<Unit>();
 	public Subject<Unit> m_onFailed = new Subject<Unit>();
@@ -19,6 +21,8 @@ public class EnemyGhost : MonoBehaviour {
 		m_stageLane = stageLane;
 		m_blockPosition = blockPosition;
 		transform.position = m_stageLane.m_blocks[m_blockPosition].transform.position;
+        var pos = new Vector3(transform.position.x, transform.position.y + high,transform.position.z);
+        transform.position = pos;
 		transform.localRotation = Quaternion.LookRotation(Vector3.back, Vector3.up);
 	}
 

@@ -32,7 +32,9 @@ public class EnemyGhostStep : MonoBehaviour {
 						var rate = para.rate;
 						var pos = Vector3.Lerp(sPos, ePos, rate);
 						pos += Vector3.up * Mathf.Sin(Mathf.PI * rate) * m_jumpHeight;
-						ghost.transform.position = pos;
+                        var posit = new Vector3(pos.x, pos.y+ 0.5f, pos.z);
+                        pos = posit;
+                        ghost.transform.position = pos;
 					});
 			});
 		m_timingManager.m_onStep
