@@ -10,6 +10,7 @@ public class ResultEffect : MonoBehaviour
     public Sprite[] letterSprites = new Sprite[5];
     public Image letterImage;
     public Text score;
+    public GameObject lowGradeGhost;
     private PlayableDirector m_playableDirctor;
 
     // Start is called before the first frame update

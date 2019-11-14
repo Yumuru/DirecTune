@@ -22,6 +22,7 @@ public class MusicManager : MonoBehaviour {
                 if (rate > clip.m_scoreRate) {
                     m_source.clip = clip.m_clip;
                     m_source.timeSamples = Music.TimeSamples;
+                    m_source.Play();
                     return;
                 }
             }

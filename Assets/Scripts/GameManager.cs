@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour {
 	public GameScore m_gameScore;
 	public MusicManager m_musicManager;
 	public GhostSpownManager m_ghostSpawnManager;
-	
+    public GameObject m_pressMessageUI;
+
 	public Subject<Unit> m_onPlay = new Subject<Unit>();
     public enum State
     {
@@ -31,8 +32,10 @@ public class GameManager : MonoBehaviour {
 	private void Start() {
         m_onPlay.Subscribe(_ => {
             Music.Play("Music");
+            m_musicManager.m_source.Play();
             State m_correntState = State.Play;
 			m_ghostSpawnManager.m_playableDirector.Play();
+            m_pressMessageUI.SetActive(false);
         });
 		this.UpdateAsObservable()
 			.Where(_ => Input.GetKeyDown(KeyCode.P))
