@@ -13,8 +13,7 @@ public class ResultEffect : MonoBehaviour
     private PlayableDirector m_playableDirctor;
 
     // Start is called before the first frame update
-    void Start()
-    {
+    void OnEnable(){
         this.gameObject.SetActive(true);
         m_playableDirctor = this.GetComponent<PlayableDirector>();
         m_playableDirctor.Play();
@@ -22,6 +21,9 @@ public class ResultEffect : MonoBehaviour
         score.text = gameScore.m_score.Value.m_score.ToString();
         SetLetterImage(gameScore.m_score.Value.m_rate);
         GameManager.Ins.m_currentState = GameManager.State.End;
+    }
+    void Start()
+    {
     }
 
     void SetLetterImage(float rate){

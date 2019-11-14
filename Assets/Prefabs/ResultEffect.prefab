@@ -43,7 +43,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 62779f0e6e5c1394498f9bdea08254e3, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -695,7 +695,7 @@ PrefabInstance:
     - target: {fileID: 2074437587574294048, guid: 2909f92b5ff174b99a651d178f9ce39d,
         type: 3}
       propertyPath: m_progress
-      value: 0.4
+      value: 0.73722214
       objectReference: {fileID: 0}
     - target: {fileID: 2074437587574294048, guid: 2909f92b5ff174b99a651d178f9ce39d,
         type: 3}

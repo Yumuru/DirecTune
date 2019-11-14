@@ -12,7 +12,8 @@ public class GameManager : MonoBehaviour {
 	public TimingManager timingManager;
 	public GameScore m_gameScore;
 	public MusicManager m_musicManager;
-
+	public GhostSpownManager m_ghostSpawnManager;
+	
 	public Subject<Unit> m_onPlay = new Subject<Unit>();
     public enum State
     {
@@ -31,6 +32,7 @@ public class GameManager : MonoBehaviour {
         m_onPlay.Subscribe(_ => {
             Music.Play("Music");
             State m_correntState = State.Play;
+			m_ghostSpawnManager.m_playableDirector.Play();
         });
 		this.UpdateAsObservable()
 			.Where(_ => Input.GetKeyDown(KeyCode.P))
