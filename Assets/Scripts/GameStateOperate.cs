@@ -24,8 +24,12 @@ public class GameStateOperate : MonoBehaviour
             gameStartUI.SetActive(false);
         });
 
+		var pushR = this.UpdateAsObservable()
+			.Where(_ => Input.GetKeyDown(KeyCode.R));
+
 		buttons.applicationMenu.press.down
 			.Where(_ => buttons.trigger.press.isRecog)
+			.Merge(pushR)
 			.Where(_ => GameManager.Ins.m_currentState == GameManager.State.End)
 			.Subscribe(_ => {
 				GameManager.Ins.SceneReset();
