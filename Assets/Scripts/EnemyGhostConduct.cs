@@ -14,8 +14,8 @@ public class EnemyGhostConduct : MonoBehaviour {
 		m_stick = GetComponentInParent<VRStick>();
 	}
 
-	private void Start() {
-		var head = m_stick.head;
+	private async void Start() {
+		var head = await m_stick.head;
 		var stageManager = GameManager.Ins.m_stageManager;
 		var laneController = stageManager.m_stageLaneController;
 		var audioSource = gameObject.AddComponent<AudioSource>();
