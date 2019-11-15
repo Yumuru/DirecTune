@@ -12,7 +12,12 @@ public class GameStateOperate : MonoBehaviour
     void Start()
     {
         var stick = GetComponentInParent<VRStick>();
-        stick.buttons.trigger.press.down.Subscribe(_ =>
+        var buttons = stick.buttons;
+        var anyPress = buttons.trigger.press.down
+            .Merge(buttons.applicationMenu.press.down)
+            .Merge(buttons.grip.press.down)
+            .Merge(buttons.touchpad.press.down);
+        anyPress.Subscribe(_ =>
         {
             if (GameManager.Ins.m_currentState != GameManager.State.Start) return;
             GameManager.Ins.m_onPlay.OnNext(Unit.Default);
