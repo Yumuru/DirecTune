@@ -24,7 +24,7 @@ public class ResultEffect : MonoBehaviour
 		GameManager.Ins.m_onEnd.OnNext(Unit.Default);
     }
     void Start() {
-		GameManager.Ins.onReset.Subscribe(_ => {
+		GameManager.Ins.m_onReset.Subscribe(_ => {
 			gameObject.SetActive(false);
 		});
     }

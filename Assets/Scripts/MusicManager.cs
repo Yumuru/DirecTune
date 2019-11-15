@@ -34,7 +34,7 @@ public class MusicManager : MonoBehaviour {
             }
         });
 
-		GameManager.Ins.onReset.Subscribe(_ => {
+		GameManager.Ins.m_onReset.Subscribe(_ => {
 			m_source.Stop();
 		});
     }
