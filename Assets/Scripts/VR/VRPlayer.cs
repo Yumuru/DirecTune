@@ -8,7 +8,7 @@ using UniRx.Triggers;
 public class VRPlayer : MonoBehaviour {
     public SteamVR_ControllerManager controllerManager { get; private set; }
 
-    public VRHead head { get; set; }
+	public VRHead head;
     public AsyncSubject<VRStick> lStick = new AsyncSubject<VRStick>();
     public AsyncSubject<VRStick> rStick = new AsyncSubject<VRStick>();
     public ReplaySubject<VRStick> sticks = new ReplaySubject<VRStick>();

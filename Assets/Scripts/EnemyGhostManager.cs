@@ -28,7 +28,6 @@ public class EnemyGhostManager : MonoBehaviour {
 		ghost.Initialize(lane, lane.m_num-1);
 		ghost.OnDestroyAsObservable()
 			.Subscribe(_ => lane.m_ghosts.Remove(ghost));
-		GameManager.Ins.m_onReset.Subscribe(_ => Destroy(gameObject));
 		m_ghostStep.SetAction(ghost);
 		return ghost;
 	}

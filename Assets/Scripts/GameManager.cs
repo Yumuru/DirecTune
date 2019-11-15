@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UniRx;
 using UniRx.Triggers;
 
@@ -25,8 +26,6 @@ public class GameManager : MonoBehaviour {
     }
     public State m_currentState = State.Start;
 
-	public Subject<Unit> m_onReset = new Subject<Unit>();
-
 	private void Awake() {
 		Ins = this;
 	}
@@ -42,9 +41,6 @@ public class GameManager : MonoBehaviour {
 		m_onEnd.Subscribe(_ => {
 			m_currentState = State.End;
 		});
-		m_onReset.Subscribe(_ => {
-			m_currentState = State.Start;
-		});
 		this.UpdateAsObservable()
 			.Where(_ => Input.GetKeyDown(KeyCode.P))
 			.Subscribe(_ => {
@@ -54,11 +50,10 @@ public class GameManager : MonoBehaviour {
 			.Subscribe(_ => {
 				m_onPlay.OnCompleted();
 				m_onEnd.OnCompleted();
-				m_onReset.OnCompleted();
 			});
 	}
 
     public void SceneReset() {
-		m_onReset.OnNext(Unit.Default);
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
