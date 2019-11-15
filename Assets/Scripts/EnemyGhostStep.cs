@@ -17,9 +17,11 @@ public class EnemyGhostStep : MonoBehaviour {
 
 	public void SetAction(EnemyGhost ghost) {
 		var lane = ghost.m_stageLane;
+		var until = ghost.OnDestroyAsObservable()
+				.Merge(ghost.m_onConducted)
+				.Merge(ghost.m_onFailed);
 		m_timingManager.m_onStep
-			.TakeUntil(ghost.OnDestroyAsObservable())
-			.TakeUntil(ghost.m_onConducted)
+			.TakeUntil(until)
 			.TakeWhile(_ => ghost.m_blockPosition >= 0)
 			.Subscribe(_ => {
 				var sPos = lane.m_blocks[ghost.m_blockPosition].transform.position;
@@ -27,7 +29,7 @@ public class EnemyGhostStep : MonoBehaviour {
 				if (ghost.m_blockPosition < 0) return;
 				var ePos = lane.m_blocks[ghost.m_blockPosition].transform.position;
 				ghost.Anim(m_timingManager.m_stepLength.CurrentMusicTime())
-					.TakeUntil(ghost.m_onConducted)
+					.TakeUntil(until)
 					.Subscribe(para => {
 						var rate = para.rate;
 						var pos = Vector3.Lerp(sPos, ePos, rate);
@@ -38,8 +40,7 @@ public class EnemyGhostStep : MonoBehaviour {
 					});
 			});
 		m_timingManager.m_onStep
-            .TakeUntil(ghost.m_onConducted)
-            .TakeUntil(ghost.m_onFailed)
+            .TakeUntil(until)
 			.Where(_ => ghost.m_blockPosition < 0)
 			.Take(1)
 			.Subscribe(_ => ghost.m_onFailed.OnNext(Unit.Default));

@@ -23,11 +23,6 @@ public class ResultEffect : MonoBehaviour
         SetLetterImage(gameScore.m_score.Value.m_rate);
 		GameManager.Ins.m_onEnd.OnNext(Unit.Default);
     }
-    void Start() {
-		GameManager.Ins.m_onReset.Subscribe(_ => {
-			gameObject.SetActive(false);
-		});
-    }
 
     void SetLetterImage(float rate){
         if(rate>0.8f){

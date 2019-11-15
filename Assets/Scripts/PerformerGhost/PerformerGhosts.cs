@@ -38,22 +38,16 @@ public class PerformerGhosts : MonoBehaviour {
                     cNum++;
                 }
             };
-			IDisposable disposable = null;
             if (m_sRateScore == 0f && m_eRateScore == 0f) {
                 pop(1f);
             } else {
-                disposable = GameManager.Ins.m_gameScore
+                GameManager.Ins.m_gameScore
                     .m_score
                     .Select(p => p.m_rate)
                     .Where(s => s >= m_sRateScore && s <= m_eRateScore)
                     .Select(s => (s - m_sRateScore) / (m_eRateScore - m_sRateScore))
                     .Subscribe(pop);
             }
-
-			GameManager.Ins.m_onReset.Subscribe(_ => {
-				disposable?.Dispose();
-				Start();
-			});
         }
 
         void Pop(Transform transform) {
@@ -62,7 +56,9 @@ public class PerformerGhosts : MonoBehaviour {
             obj.transform.position = transform.position;
             obj.transform.rotation = transform.rotation;
             obj.transform.localScale = Vector3.one;
-			GameManager.Ins.m_onReset.Subscribe(_ => {
+			GameManager.Ins.m_onEnd
+				.Take(1)
+				.Subscribe(_ => {
 				Destroy(obj);
 			});
         }

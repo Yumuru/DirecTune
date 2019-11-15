@@ -24,6 +24,9 @@ public class VRStick : MonoBehaviour {
         buttons = new VRStickButtons(this);
     }
     void Start() {
+		this.UpdateAsObservable()
+			.Where(_ => head != null)
+			.Subscribe(_ => head = player.head);
         isLeft = gameObject == player.controllerManager.left;
         player.sticks.Where(stick => isLeft != stick.isLeft)
             .Subscribe(stick => stick.otherSide.OnNext(this));
