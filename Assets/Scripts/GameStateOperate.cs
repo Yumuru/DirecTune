@@ -17,12 +17,19 @@ public class GameStateOperate : MonoBehaviour
             .Merge(buttons.applicationMenu.press.down)
             .Merge(buttons.grip.press.down)
             .Merge(buttons.touchpad.press.down);
-        anyPress.Subscribe(_ =>
-        {
-            if (GameManager.Ins.m_currentState != GameManager.State.Start) return;
+        anyPress
+			.Where(_ => GameManager.Ins.m_currentState == GameManager.State.Start)
+			.Subscribe(_ => {
             GameManager.Ins.m_onPlay.OnNext(Unit.Default);
             gameStartUI.SetActive(false);
         });
+
+		buttons.applicationMenu.press.down
+			.Where(_ => buttons.trigger.press.isRecog)
+			.Where(_ => GameManager.Ins.m_currentState == GameManager.State.End)
+			.Subscribe(_ => {
+				GameManager.Ins.SceneReset();
+			});
     }
 
     // Update is called once per frame

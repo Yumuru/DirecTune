@@ -37,9 +37,13 @@ public class VRStickButtons {
     public class Recog {
         public IObservable<Unit> down;
         public IObservable<Unit> up;
+		public bool isRecog = false;
         public Recog(IObservable<Unit> down, IObservable<Unit> up) {
             this.down = down;
             this.up = up;
+			down.Select(_ => true)
+				.Merge(up.Select(_ => false))
+				.Subscribe(b => isRecog = b);
         }
     }
 

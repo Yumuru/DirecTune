@@ -21,10 +21,12 @@ public class ResultEffect : MonoBehaviour
         GameScore gameScore = GameManager.Ins.m_gameScore;
         score.text = gameScore.m_score.Value.m_score.ToString();
         SetLetterImage(gameScore.m_score.Value.m_rate);
-        GameManager.Ins.m_currentState = GameManager.State.End;
+		GameManager.Ins.m_onEnd.OnNext(Unit.Default);
     }
-    void Start()
-    {
+    void Start() {
+		GameManager.Ins.onReset.Subscribe(_ => {
+			gameObject.SetActive(false);
+		});
     }
 
     void SetLetterImage(float rate){

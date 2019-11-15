@@ -15,6 +15,13 @@ public class MusicManager : MonoBehaviour {
 
     void Start() {
         var gameScore = GameManager.Ins.m_gameScore;
+		m_source.Stop();
+
+		GameManager.Ins.m_onPlay.Subscribe(_ => {
+			m_source.clip = m_clips[0].m_clip;
+			m_source.timeSamples = Music.TimeSamples;
+			m_source.Play();
+		});
 
         gameScore.m_score.Subscribe(p => {
             var rate = p.m_rate;
@@ -22,11 +29,14 @@ public class MusicManager : MonoBehaviour {
                 if (rate > clip.m_scoreRate) {
                     m_source.clip = clip.m_clip;
                     m_source.timeSamples = Music.TimeSamples;
-                    m_source.Play();
                     return;
                 }
             }
         });
+
+		GameManager.Ins.onReset.Subscribe(_ => {
+			m_source.Stop();
+		});
     }
 
     [Serializable]
