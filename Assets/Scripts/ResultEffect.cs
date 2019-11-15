@@ -10,12 +10,12 @@ public class ResultEffect : MonoBehaviour
     public Sprite[] letterSprites = new Sprite[5];
     public Image letterImage;
     public Text score;
-    public GameObject lowGradeGhost;
+    public GameObject performerGhost;
     private PlayableDirector m_playableDirctor;
 
     // Start is called before the first frame update
     void OnEnable(){
-        this.gameObject.SetActive(true);
+        performerGhost.SetActive(false);
         m_playableDirctor = this.GetComponent<PlayableDirector>();
         m_playableDirctor.Play();
         GameScore gameScore = GameManager.Ins.m_gameScore;
