@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
     public GameObject m_pressMessageUI;
 
 	public Subject<Unit> m_onPlay = new Subject<Unit>();
+	public Subject<Unit> m_onEnd = new Subject<Unit>();
     public enum State
     {
         Start,
@@ -24,7 +25,8 @@ public class GameManager : MonoBehaviour {
     }
     public State m_currentState = State.Start;
 
-	public Subject<Unit> m_onEnd = new Subject<Unit>();
+	public Subject<Unit> m_onReset = new Subject<Unit>();
+
 	private void Awake() {
 		Ins = this;
 	}
@@ -33,21 +35,27 @@ public class GameManager : MonoBehaviour {
         m_onPlay.Subscribe(_ => {
             Music.Play("Music");
             m_musicManager.m_source.Play();
-            State m_correntState = State.Play;
+            m_currentState = State.Play;
 			m_ghostSpawnManager.m_playableDirector.Play();
             m_pressMessageUI.SetActive(false);
         });
+		m_onEnd.Subscribe(_ => {
+			m_currentState = State.End;
+		});
 		this.UpdateAsObservable()
 			.Where(_ => Input.GetKeyDown(KeyCode.P))
 			.Subscribe(_ => {
 				m_onPlay.OnNext(Unit.Default);
 			});
 		this.OnDestroyAsObservable()
-			.Subscribe(_ => m_onPlay.OnCompleted());
+			.Subscribe(_ => {
+				m_onPlay.OnCompleted();
+				m_onEnd.OnCompleted();
+				m_onReset.OnCompleted();
+			});
 	}
-    public void Restart() { }
-    public void SceneReset()
-    {
-        
+
+    public void SceneReset() {
+		m_onReset.OnNext(Unit.Default);
     }
 }

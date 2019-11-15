@@ -28,10 +28,8 @@ public class EnemyGhostManager : MonoBehaviour {
 		ghost.Initialize(lane, lane.m_num-1);
 		ghost.OnDestroyAsObservable()
 			.Subscribe(_ => lane.m_ghosts.Remove(ghost));
+		GameManager.Ins.m_onReset.Subscribe(_ => Destroy(gameObject));
 		m_ghostStep.SetAction(ghost);
-        /*var effect = Instantiate(m_spawnEffect);
-        effect.transform.position = ghost.transform.position;
-        effect.GetComponentInChildren<ParticleSystem>().PlayDestroy();*/
 		return ghost;
 	}
 }

@@ -25,6 +25,9 @@ public class GameScore : MonoBehaviour{
             m_score.Value = new ScoreParameter(){ m_rate = rate, m_score = score};
         });
         m_numConductedGhost.Value = 0;
+		GameManager.Ins.m_onReset.Subscribe(_ => {
+			m_numConductedGhost.Value = 0;
+		});
     }
 
     public struct ScoreParameter {
