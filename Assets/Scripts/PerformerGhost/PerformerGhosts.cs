@@ -59,7 +59,7 @@ public class PerformerGhosts : MonoBehaviour {
 			GameManager.Ins.m_onEnd
 				.Take(1)
 				.Subscribe(_ => {
-				Destroy(obj);
+				Destroy(obj, 2f);
 			});
         }
     }
