@@ -18,7 +18,7 @@ public class MusicManager : MonoBehaviour {
 		m_source.Stop();
 
 		GameManager.Ins.m_onPlay.Subscribe(_ => {
-			m_source.clip = m_clips[0].m_clip;
+			m_source.clip = m_clips[4].m_clip;
 			m_source.timeSamples = Music.TimeSamples;
 			m_source.Play();
 		});
@@ -29,6 +29,7 @@ public class MusicManager : MonoBehaviour {
                 if (rate > clip.m_scoreRate) {
                     m_source.clip = clip.m_clip;
                     m_source.timeSamples = Music.TimeSamples;
+                    m_source.Play();
                     return;
                 }
             }
