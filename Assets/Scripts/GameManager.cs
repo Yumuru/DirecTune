@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour {
 		m_onEnd.Subscribe(_ => {
 			m_currentState = State.End;
 		});
+		m_onReset.Subscribe(_ => {
+			m_currentState = State.Start;
+		});
 		this.UpdateAsObservable()
 			.Where(_ => Input.GetKeyDown(KeyCode.P))
 			.Subscribe(_ => {
