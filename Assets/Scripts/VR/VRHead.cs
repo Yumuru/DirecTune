@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using UniRx.Async;
 using UniRx.Triggers;
 
 public class VRHead : MonoBehaviour {
@@ -11,6 +12,6 @@ public class VRHead : MonoBehaviour {
 
     private void Awake() {
         player = transform.GetComponentInParent<VRPlayer>();
-        player.head = this;
+		player.head = UniTask.Run(() => this);
     }
 }

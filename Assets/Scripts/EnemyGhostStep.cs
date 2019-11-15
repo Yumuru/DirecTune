@@ -1,0 +1,48 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
+
+public class EnemyGhostStep : MonoBehaviour {
+	TimingManager m_timingManager;
+	public float m_jumpHeight;
+	private void Awake() {
+		GetComponentInParent<EnemyGhostManager>().m_ghostStep = this;
+	}
+
+	private void Start() {
+		m_timingManager = GameManager.Ins.timingManager;
+	}
+
+	public void SetAction(EnemyGhost ghost) {
+		var lane = ghost.m_stageLane;
+		var until = ghost.OnDestroyAsObservable()
+				.Merge(ghost.m_onConducted)
+				.Merge(ghost.m_onFailed);
+		m_timingManager.m_onStep
+			.TakeUntil(until)
+			.TakeWhile(_ => ghost.m_blockPosition >= 0)
+			.Subscribe(_ => {
+				var sPos = lane.m_blocks[ghost.m_blockPosition].transform.position;
+				ghost.m_blockPosition--;
+				if (ghost.m_blockPosition < 0) return;
+				var ePos = lane.m_blocks[ghost.m_blockPosition].transform.position;
+				ghost.Anim(m_timingManager.m_stepLength.CurrentMusicTime())
+					.TakeUntil(until)
+					.Subscribe(para => {
+						var rate = para.rate;
+						var pos = Vector3.Lerp(sPos, ePos, rate);
+						pos += Vector3.up * Mathf.Sin(Mathf.PI * rate) * m_jumpHeight;
+                        var posit = new Vector3(pos.x, pos.y+ 0.5f, pos.z);
+                        pos = posit;
+                        ghost.transform.position = pos;
+					});
+			});
+		m_timingManager.m_onStep
+            .TakeUntil(until)
+			.Where(_ => ghost.m_blockPosition < 0)
+			.Take(1)
+			.Subscribe(_ => ghost.m_onFailed.OnNext(Unit.Default));
+	}
+}
